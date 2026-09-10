@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SC-07 기록 탭 — 탄천 러너 Wireframe</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="../styles/tokens.css">
+<link rel="stylesheet" href="../styles/common.css">
+</head>
+<body>
+
+<div class="stage">
+  <div class="phone">
+
+    <main class="app-body">
+
+      <!-- 기록 있음 -->
+      <div data-when="default first">
+        <div class="section section--tight">
+          <div class="card">
+            <div class="card__head">
+              <span class="card__title">개인 최고 기록</span>
+              <span class="caption" data-when="first">첫 러닝 기준</span>
+            </div>
+            <div class="metric-grid metric-grid--3">
+              <div class="metric">
+                <span class="metric__value metric__value--sm" data-when="default">12.40 km</span>
+                <span class="metric__value metric__value--sm" data-when="first">3.20 km</span>
+                <span class="metric__label">최장 거리</span>
+              </div>
+              <div class="metric">
+                <span class="metric__value metric__value--sm">5'02"</span>
+                <span class="metric__label">최고 페이스</span>
+              </div>
+              <div class="metric">
+                <span class="metric__value metric__value--sm" data-when="default">1:18:22</span>
+                <span class="metric__value metric__value--sm" data-when="first">16:06</span>
+                <span class="metric__label">최대 운동 시간</span>
+              </div>
+            </div>
+          </div>
+          <p class="caption" data-when="first">첫 러닝은 그 자체가 개인 최고 기록이 돼요.</p>
+        </div>
+
+        <div class="flat-list">
+          <div class="flat-list__head">
+            <span>러닝 기록</span>
+            <span data-when="default">최근 4회</span>
+            <span data-when="first">최근 1회</span>
+          </div>
+
+          <div class="record-row" data-when="default">
+            <div class="record-row__top">
+              <span class="record-row__date">2026.09.10 (목)</span>
+              <span class="record-row__dist">7.24 km</span>
+            </div>
+            <div class="record-row__meta">
+              <span>탄천 인정 <b>4.51 km</b></span><span>00:42:10</span><span>평균 5'49"/km</span>
+            </div>
+          </div>
+
+          <div class="record-row" data-when="default">
+            <div class="record-row__top">
+              <span class="record-row__date">2026.09.08 (화)</span>
+              <span class="record-row__dist">5.10 km</span>
+            </div>
+            <div class="record-row__meta">
+              <span>탄천 인정 <b>0.00 km</b></span><span>00:31:24</span><span>평균 6'09"/km</span>
+            </div>
+          </div>
+
+          <div class="record-row" data-when="default">
+            <div class="record-row__top">
+              <span class="record-row__date">2026.09.05 (토)</span>
+              <span class="record-row__dist">12.40 km</span>
+            </div>
+            <div class="record-row__meta">
+              <span>탄천 인정 <b>9.80 km</b></span><span>01:18:22</span><span>평균 6'19"/km</span>
+            </div>
+          </div>
+
+          <div class="record-row">
+            <div class="record-row__top">
+              <span class="record-row__date">2026.09.02 (수)</span>
+              <span class="record-row__dist">3.20 km</span>
+            </div>
+            <div class="record-row__meta">
+              <span>탄천 인정 <b>3.20 km</b></span><span>00:16:06</span><span>평균 5'02"/km</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 기록 없음 -->
+      <div class="empty" data-when="empty">
+        <span class="empty__icon"><span></span></span>
+        <span class="empty__title">아직 기록이 없습니다</span>
+        <span class="empty__desc">러닝을 마치면 Ranking Zone 안팎과 관계없이<br>이곳에 기록이 쌓여요.</span>
+      </div>
+
+    </main>
+
+  </div>
+</div>
+
+<script type="application/json" id="screen-meta">
+{
+  "id": "SC-07",
+  "name": "기록 탭",
+  "purpose": "개인 최고 기록과 과거 러닝 세션 목록을 확인한다(Zone 안팎 모두 포함).",
+  "header": "기록",
+  "tab": "record",
+  "trace": {
+    "workflow": "S6 개인 누적 기록 확인",
+    "feature": "F7 기록 탭(목록 + 개인 최고 기록) · F6 러닝 종료 시 자동 저장",
+    "requirement": "R8 일자별 개인 기록 저장·확인 · R9 과거 기록 목록 조회 · R10 개인 최고 기록 · R12 Zone 외부 거리도 포함",
+    "policy": "P6 본인 기록만 조회, 누적 저장 한도 없음"
+  },
+  "states": [
+    { "id": "default", "label": "Default", "note": "상단 최고 기록 3칸 + 날짜별 Flat List. 09.08 행처럼 Zone 밖에서만 달린 세션은 탄천 인정 0.00 km로 저장된다(R12·F6 예외)." },
+    { "id": "first", "label": "첫 러닝", "note": "F7 — 첫 러닝은 그 자체가 개인 최고 기록으로 표시된다." },
+    { "id": "empty", "label": "기록 없음", "note": "F7 예외 — 신규 가입 직후 '아직 기록이 없습니다'. 정렬·필터는 MVP 범위 밖(06-backlog)이라 제공하지 않는다." }
+  ]
+}
+</script>
+<script src="../scripts/common.js"></script>
+</body>
+</html>

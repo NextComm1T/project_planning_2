@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>탄천 로컬 개인 랭킹전 — MVP Wireframe Gallery</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="styles/tokens.css">
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: var(--font);
+    color: var(--label-normal);
+    background: var(--bg-alt);
+  }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 40px 20px 80px; }
+
+  .head { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+  .head__tag {
+    display: inline-flex; align-items: center; gap: 8px; width: fit-content;
+    padding: 6px 12px; border-radius: var(--r-pill);
+    background: var(--primary-bg); color: var(--primary-heavy);
+    font-size: 13px; font-weight: 600;
+  }
+  .head__tag span { width: 6px; height: 6px; border-radius: 999px; background: var(--primary-normal); }
+  h1 { margin: 0; font-size: 32px; line-height: 1.25; letter-spacing: -0.025em; }
+  .head__desc { margin: 0; font-size: 15px; line-height: 1.6; color: var(--label-alt); max-width: 720px; }
+  .head__meta { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 13px; color: var(--label-alt); }
+  .head__meta a { color: var(--primary-normal); }
+
+  .flow {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+    padding: 16px 18px; margin-bottom: 28px;
+    background: var(--bg-normal); border: 1px solid var(--line-neutral); border-radius: var(--r-card);
+    font-size: 13px;
+  }
+  .flow b { font-weight: 700; }
+  .flow__step {
+    padding: 6px 12px; border-radius: var(--r-pill);
+    background: var(--fill-subtle); color: var(--label-neutral); font-weight: 600;
+    text-decoration: none;
+  }
+  .flow__step:hover { background: var(--primary-bg); color: var(--primary-heavy); }
+  .flow__arrow { color: var(--label-assistive); }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 18px; }
+
+  .card {
+    display: flex; gap: 16px;
+    background: var(--bg-normal); border: 1px solid var(--line-neutral);
+    border-radius: var(--r-card); padding: 16px;
+  }
+  .preview {
+    width: 156px; height: 338px; flex: none;
+    border: 1px solid var(--line-neutral); border-radius: var(--r-md);
+    overflow: hidden; background: var(--bg-alt); position: relative;
+  }
+  .preview iframe {
+    width: 390px; height: 844px; border: 0;
+    transform: scale(0.4); transform-origin: top left;
+  }
+  .preview__hit { position: absolute; inset: 0; }
+
+  .info { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+  .info__id { font-family: var(--mono); font-size: 11px; color: var(--label-alt); }
+  .info__name { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; }
+  .info__name a { color: inherit; text-decoration: none; }
+  .info__name a:hover { color: var(--primary-normal); }
+  .info__purpose { font-size: 13px; line-height: 1.5; color: var(--label-alt); }
+  .info__trace { font-size: 11.5px; line-height: 1.6; color: var(--label-alt); font-family: var(--mono); }
+  .info__key { font-size: 11px; font-weight: 700; color: var(--label-assistive); letter-spacing: 0.02em; margin-top: 2px; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    padding: 5px 10px; border-radius: var(--r-pill);
+    background: var(--fill-subtle); color: var(--label-neutral);
+    font-size: 12px; font-weight: 600; text-decoration: none;
+  }
+  .chip:hover { background: var(--primary-bg); color: var(--primary-heavy); }
+  .chip--open { background: var(--primary-normal); color: #fff; }
+  .chip--open:hover { background: var(--primary-strong); color: #fff; }
+
+  .foot {
+    margin-top: 32px; padding: 18px 20px;
+    background: var(--caution-bg); color: var(--caution-fg);
+    border-radius: var(--r-card); font-size: 13px; line-height: 1.65;
+  }
+  .foot b { font-weight: 700; }
+  .foot a { color: inherit; }
+
+  @media (max-width: 480px) {
+    .card { flex-direction: column; }
+    .preview { width: 100%; height: 300px; }
+    .preview iframe { transform: scale(0.86); }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="head">
+    <span class="head__tag"><span></span>MVP Wireframe · Mid-Fidelity</span>
+    <h1>탄천 로컬 개인 랭킹전</h1>
+    <p class="head__desc">
+      docs/01~05 기획 문서를 화면 구조로 옮긴 Wireframe입니다. 사용자 흐름 순서로 정렬되어 있고,
+      각 Screen의 State Variant는 화면 상단 검토용 바에서 바꿔 볼 수 있습니다.
+    </p>
+    <div class="head__meta">
+      <span>7 Screen · 22 State Variant</span>
+      <span>viewport 390px</span>
+      <span>디자인 토큰: design_System (montage-web WDS)</span>
+      <a href="README.md">Traceability &amp; Design Decisions →</a>
+    </div>
+  </div>
+
+  <div class="flow">
+    <b>Flow</b>
+    <a class="flow__step" href="screens/01-login.html">S0 로그인</a>
+    <span class="flow__arrow">→</span>
+    <a class="flow__step" href="screens/02-nickname.html">S0 닉네임</a>
+    <span class="flow__arrow">→</span>
+    <a class="flow__step" href="screens/03-run-start.html">S1 러닝 시작</a>
+    <span class="flow__arrow">→</span>
+    <a class="flow__step" href="screens/04-run-active.html">S2·S3 러닝 진행</a>
+    <span class="flow__arrow">→</span>
+    <a class="flow__step" href="screens/05-result.html">S4 결과</a>
+    <span class="flow__arrow">→</span>
+    <a class="flow__step" href="screens/06-ranking.html">S5 랭킹</a>
+    <span class="flow__arrow">→</span>
+    <a class="flow__step" href="screens/07-record.html">S6 기록</a>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="preview">
+        <iframe src="screens/01-login.html?embed=1" title="SC-01 미리보기" loading="lazy" scrolling="no"></iframe>
+        <a class="preview__hit" href="screens/01-login.html" aria-label="SC-01 열기"></a>
+      </div>
+      <div class="info">
+        <span class="info__id">SC-01</span>
+        <span class="info__name"><a href="screens/01-login.html">로그인 · 회원가입</a></span>
+        <span class="info__purpose">카카오·구글 소셜 로그인으로 가입·로그인한다.</span>
+        <span class="info__trace">S0 · F8 · R13</span>
+        <span class="info__key">STATE</span>
+        <div class="chips">
+          <a class="chip" href="screens/01-login.html?state=default">Default</a>
+          <a class="chip" href="screens/01-login.html?state=error">인증 실패</a>
+        </div>
+        <div class="chips"><a class="chip chip--open" href="screens/01-login.html">화면 열기</a></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="preview">
+        <iframe src="screens/02-nickname.html?embed=1&state=empty" title="SC-02 미리보기" loading="lazy" scrolling="no"></iframe>
+        <a class="preview__hit" href="screens/02-nickname.html" aria-label="SC-02 열기"></a>
+      </div>
+      <div class="info">
+        <span class="info__id">SC-02</span>
+        <span class="info__name"><a href="screens/02-nickname.html">닉네임 설정</a></span>
+        <span class="info__purpose">가입 시 닉네임을 직접 입력해 저장한다(필수·중복 불가).</span>
+        <span class="info__trace">S0 · F10 · R15</span>
+        <span class="info__key">STATE</span>
+        <div class="chips">
+          <a class="chip" href="screens/02-nickname.html?state=empty">미입력 (Disabled)</a>
+          <a class="chip" href="screens/02-nickname.html?state=filled">입력 완료</a>
+          <a class="chip" href="screens/02-nickname.html?state=duplicate">닉네임 중복</a>
+        </div>
+        <div class="chips"><a class="chip chip--open" href="screens/02-nickname.html">화면 열기</a></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="preview">
+        <iframe src="screens/03-run-start.html?embed=1&state=ready" title="SC-03 미리보기" loading="lazy" scrolling="no"></iframe>
+        <a class="preview__hit" href="screens/03-run-start.html?state=ready" aria-label="SC-03 열기"></a>
+      </div>
+      <div class="info">
+        <span class="info__id">SC-03</span>
+        <span class="info__name"><a href="screens/03-run-start.html?state=ready">러닝 시작</a></span>
+        <span class="info__purpose">GPS 확인이 끝난 뒤에만 시작할 수 있다. 시작 → 3초 카운트다운 → 러닝 진행.</span>
+        <span class="info__trace">S1 · F1 · R1, R16 · P1, P7</span>
+        <span class="info__key">STATE</span>
+        <div class="chips">
+          <a class="chip" href="screens/03-run-start.html?state=checking">GPS 확인 중</a>
+          <a class="chip" href="screens/03-run-start.html?state=ready">GPS 정상</a>
+          <a class="chip" href="screens/03-run-start.html?state=gps-error">GPS 사용 불가</a>
+          <a class="chip" href="screens/03-run-start.html?state=session">진행 중 세션</a>
+          <a class="chip" href="screens/03-run-start.html?state=countdown">3초 카운트다운</a>
+        </div>
+        <div class="chips"><a class="chip chip--open" href="screens/03-run-start.html?state=ready">화면 열기</a></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="preview">
+        <iframe src="screens/04-run-active.html?embed=1" title="SC-04 미리보기" loading="lazy" scrolling="no"></iframe>
+        <a class="preview__hit" href="screens/04-run-active.html" aria-label="SC-04 열기"></a>
+      </div>
+      <div class="info">
+        <span class="info__id">SC-04</span>
+        <span class="info__name"><a href="screens/04-run-active.html">러닝 진행</a></span>
+        <span class="info__purpose">4개 지표를 실시간으로 보여주고 종료 버튼을 상시 노출한다. 순위는 표시하지 않는다.</span>
+        <span class="info__trace">S2, S3 · F2, F3, F4 · R2~R6, R17, R18 · P2, P3, P9</span>
+        <span class="info__key">STATE</span>
+        <div class="chips">
+          <a class="chip" href="screens/04-run-active.html?state=default">Default (실시간)</a>
+          <a class="chip" href="screens/04-run-active.html?state=weak">GPS 신호 약함</a>
+          <a class="chip" href="screens/04-run-active.html?state=outside">Zone 밖 주행</a>
+        </div>
+        <div class="chips"><a class="chip chip--open" href="screens/04-run-active.html">화면 열기</a></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="preview">
+        <iframe src="screens/05-result.html?embed=1" title="SC-05 미리보기" loading="lazy" scrolling="no"></iframe>
+        <a class="preview__hit" href="screens/05-result.html" aria-label="SC-05 열기"></a>
+      </div>
+      <div class="info">
+        <span class="info__id">SC-05</span>
+        <span class="info__name"><a href="screens/05-result.html">러닝 결과</a></span>
+        <span class="info__purpose">일자·총 거리·탄천 인정 거리·순위·시간·페이스 6항목을 확인한다.</span>
+        <span class="info__trace">S4 · F9 (+F6, F5) · R14, R8, R11, R12 · P4, P8</span>
+        <span class="info__key">STATE</span>
+        <div class="chips">
+          <a class="chip" href="screens/05-result.html?state=default">Default (랭킹 반영)</a>
+          <a class="chip" href="screens/05-result.html?state=pr">최고 기록 갱신</a>
+          <a class="chip" href="screens/05-result.html?state=zero">인정 거리 0</a>
+          <a class="chip" href="screens/05-result.html?state=norank">랭킹 데이터 없음</a>
+        </div>
+        <div class="chips"><a class="chip chip--open" href="screens/05-result.html">화면 열기</a></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="preview">
+        <iframe src="screens/06-ranking.html?embed=1" title="SC-06 미리보기" loading="lazy" scrolling="no"></iframe>
+        <a class="preview__hit" href="screens/06-ranking.html" aria-label="SC-06 열기"></a>
+      </div>
+      <div class="info">
+        <span class="info__id">SC-06</span>
+        <span class="info__name"><a href="screens/06-ranking.html">랭킹</a></span>
+        <span class="info__purpose">탄천 누적 거리 기준 전체 순위와 내 위치를 확인한다.</span>
+        <span class="info__trace">S5 · F5 · R7, R11 · P5, SP1, SP2</span>
+        <span class="info__key">STATE</span>
+        <div class="chips">
+          <a class="chip" href="screens/06-ranking.html?state=default">Default</a>
+          <a class="chip" href="screens/06-ranking.html?state=empty">랭킹 데이터 없음</a>
+        </div>
+        <div class="chips"><a class="chip chip--open" href="screens/06-ranking.html">화면 열기</a></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="preview">
+        <iframe src="screens/07-record.html?embed=1" title="SC-07 미리보기" loading="lazy" scrolling="no"></iframe>
+        <a class="preview__hit" href="screens/07-record.html" aria-label="SC-07 열기"></a>
+      </div>
+      <div class="info">
+        <span class="info__id">SC-07</span>
+        <span class="info__name"><a href="screens/07-record.html">기록 탭</a></span>
+        <span class="info__purpose">개인 최고 기록과 과거 러닝 세션 목록을 확인한다(Zone 안팎 모두).</span>
+        <span class="info__trace">S6 · F7, F6 · R8, R9, R10, R12 · P6</span>
+        <span class="info__key">STATE</span>
+        <div class="chips">
+          <a class="chip" href="screens/07-record.html?state=default">Default</a>
+          <a class="chip" href="screens/07-record.html?state=first">첫 러닝</a>
+          <a class="chip" href="screens/07-record.html?state=empty">기록 없음</a>
+        </div>
+        <div class="chips"><a class="chip chip--open" href="screens/07-record.html">화면 열기</a></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="foot">
+    <b>[확인 필요]</b> P7(동시 세션 1개 제한) 차단 이후의 복구 경로가 문서에 없어 SC-03에서는 안내 문구만 표시하고 시작을 차단하는 것으로 임시 처리했습니다.
+    그 외 임시 처리 항목은 <a href="README.md">README.md</a>의 &lsquo;확인 필요&rsquo; 절에 정리되어 있습니다.
+  </div>
+
+</div>
+</body>
+</html>

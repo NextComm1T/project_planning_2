@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SC-01 로그인 · 회원가입 — 탄천 러너 Wireframe</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="../styles/tokens.css">
+<link rel="stylesheet" href="../styles/common.css">
+</head>
+<body>
+
+<div class="stage">
+  <div class="phone">
+
+    <main class="app-body app-body--plain">
+      <div class="section section--center">
+        <div style="width:64px;height:64px;border-radius:20px;background:var(--primary-bg);display:flex;align-items:center;justify-content:center">
+          <span style="width:26px;height:26px;border-radius:8px;background:var(--primary-normal)"></span>
+        </div>
+        <h1 class="page-title">탄천 러너</h1>
+        <p class="page-desc">탄천에서 달린 거리만 모아<br>동네 러너들과 순위를 겨뤄요.</p>
+      </div>
+    </main>
+
+    <div class="cta-bar">
+      <div class="banner banner--error" data-when="error">
+        <span class="banner__dot"></span>
+        <span>로그인에 실패했습니다. 다시 시도해 주세요.</span>
+      </div>
+      <a class="btn btn--social btn--block" href="02-nickname.html">
+        <span class="social-mark social-mark--kakao"></span>카카오로 시작하기
+      </a>
+      <a class="btn btn--social btn--block" href="02-nickname.html">
+        <span class="social-mark social-mark--google"></span>구글로 시작하기
+      </a>
+      <p class="caption" style="text-align:center;margin:2px 0 0">계정 인증이 끝나면 닉네임을 설정해요.</p>
+    </div>
+
+  </div>
+</div>
+
+<script type="application/json" id="screen-meta">
+{
+  "id": "SC-01",
+  "name": "로그인 · 회원가입",
+  "purpose": "카카오·구글 소셜 로그인으로 가입·로그인한다.",
+  "trace": {
+    "workflow": "S0 회원가입 · 초기 프로필 설정",
+    "feature": "F8 소셜 로그인",
+    "requirement": "R13 소셜 로그인으로 간편 가입·로그인",
+    "policy": "해당 없음"
+  },
+  "states": [
+    { "id": "default", "label": "Default", "note": "카카오·구글 두 가지 인증 수단만 노출. 이메일 가입은 문서 범위 밖." },
+    { "id": "error", "label": "인증 실패", "note": "F8 예외 — 인증 실패 또는 취소 시 실패 안내, 회원가입 진행되지 않음. CTA 바로 위 Inline 배너." }
+  ]
+}
+</script>
+<script src="../scripts/common.js"></script>
+</body>
+</html>

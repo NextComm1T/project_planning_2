@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet data-dc-atomics>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<style>
+  body{margin:0;background:#F7F7F8;font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;color:#171719}
+  a{color:#0066FF}
+  a:hover{color:#005EEB}
+  ::selection{background:#C9DEFE}
+</style>
+</helmet>
+
+<div style="max-width:1120px;margin:0 auto;padding:64px 40px 120px;display:flex;flex-direction:column;gap:64px">
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:inline-flex;align-items:center;gap:8px;width:fit-content;padding:6px 12px;border-radius:999px;background:#EAF2FE;color:#0054D1;font-size:13px;font-weight:600">
+      <span style="width:6px;height:6px;border-radius:999px;background:#0066FF"></span>
+      montage-web (WDS) 토큰 기반
+    </div>
+    <h1 style="margin:0;font-size:40px;line-height:1.2;letter-spacing:-0.02em;font-weight:700">탄천 러너 디자인 시스템</h1>
+    <p style="margin:0;font-size:16px;line-height:1.6;color:#5A5C63;max-width:640px">탄천 러닝 코스를 기록하고 랭킹을 확인하는 앱을 위한 토큰과 공용 컴포넌트입니다. 색상·타이포·스페이싱은 원본 저장소의 atomic/semantic 값을 그대로 가져왔고, 컴포넌트는 러닝 데이터에 맞춰 구성했습니다.</p>
+  </div>
+
+  <section style="display:flex;flex-direction:column;gap:28px">
+    <h2 style="margin:0;font-size:22px;font-weight:700">색상</h2>
+
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <h3 style="margin:0;font-size:14px;font-weight:600;color:#70737C">Primary</h3>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <div style="display:flex;flex-direction:column;gap:8px;width:140px">
+          <div style="height:64px;border-radius:12px;background:#0054D1"></div>
+          <div style="font-size:12px;color:#70737C">primary.heavy<br><span style="font-family:ui-monospace,monospace;color:#171719">#0054D1</span></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;width:140px">
+          <div style="height:64px;border-radius:12px;background:#005EEB"></div>
+          <div style="font-size:12px;color:#70737C">primary.strong<br><span style="font-family:ui-monospace,monospace;color:#171719">#005EEB</span></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;width:140px">
+          <div style="height:64px;border-radius:12px;background:#0066FF"></div>
+          <div style="font-size:12px;color:#70737C">primary.normal<br><span style="font-family:ui-monospace,monospace;color:#171719">#0066FF</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <h3 style="margin:0;font-size:14px;font-weight:600;color:#70737C">Label</h3>
+      <div style="display:flex;gap:24px;flex-wrap:wrap">
+        <div style="display:flex;align-items:center;gap:10px"><span style="width:20px;height:20px;border-radius:6px;background:#171719;flex:none"></span><span style="font-size:13px;color:#5A5C63">normal <span style="font-family:ui-monospace,monospace">#171719</span></span></div>
+        <div style="display:flex;align-items:center;gap:10px"><span style="width:20px;height:20px;border-radius:6px;background:#46474C;flex:none"></span><span style="font-size:13px;color:#5A5C63">neutral <span style="font-family:ui-monospace,monospace">#46474C·88%</span></span></div>
+        <div style="display:flex;align-items:center;gap:10px"><span style="width:20px;height:20px;border-radius:6px;background:#70737C;flex:none"></span><span style="font-size:13px;color:#5A5C63">alternative <span style="font-family:ui-monospace,monospace">#70737C·61%</span></span></div>
+        <div style="display:flex;align-items:center;gap:10px"><span style="width:20px;height:20px;border-radius:6px;background:#AEB0B6;flex:none"></span><span style="font-size:13px;color:#5A5C63">assistive <span style="font-family:ui-monospace,monospace">#AEB0B6·28%</span></span></div>
+        <div style="display:flex;align-items:center;gap:10px"><span style="width:20px;height:20px;border-radius:6px;background:#C2C4C8;flex:none"></span><span style="font-size:13px;color:#5A5C63">disable <span style="font-family:ui-monospace,monospace">#C2C4C8·16%</span></span></div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <h3 style="margin:0;font-size:14px;font-weight:600;color:#70737C">Background / Line</h3>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <div style="display:flex;flex-direction:column;gap:8px;width:140px"><div style="height:56px;border-radius:12px;background:#FFFFFF;border:1px solid #EAEBEC"></div><div style="font-size:12px;color:#70737C">bg.normal</div></div>
+        <div style="display:flex;flex-direction:column;gap:8px;width:140px"><div style="height:56px;border-radius:12px;background:#F7F7F8;border:1px solid #EAEBEC"></div><div style="font-size:12px;color:#70737C">bg.alternative</div></div>
+        <div style="display:flex;flex-direction:column;gap:8px;width:140px"><div style="height:56px;border-radius:12px;background:#FFFFFF;border:1px solid #DBDCDF"></div><div style="font-size:12px;color:#70737C">line.solid.normal</div></div>
+        <div style="display:flex;flex-direction:column;gap:8px;width:140px"><div style="height:56px;border-radius:12px;background:#FFFFFF;border:1px solid #EAEBEC"></div><div style="font-size:12px;color:#70737C">line.solid.neutral</div></div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <h3 style="margin:0;font-size:14px;font-weight:600;color:#70737C">Status</h3>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <div style="display:flex;flex-direction:column;gap:8px;width:140px"><div style="height:56px;border-radius:12px;background:#00BF40"></div><div style="font-size:12px;color:#70737C">positive · 목표 달성</div></div>
+        <div style="display:flex;flex-direction:column;gap:8px;width:140px"><div style="height:56px;border-radius:12px;background:#FF9200"></div><div style="font-size:12px;color:#70737C">cautionary · 주의</div></div>
+        <div style="display:flex;flex-direction:column;gap:8px;width:140px"><div style="height:56px;border-radius:12px;background:#FF4242"></div><div style="font-size:12px;color:#70737C">negative · 오류</div></div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <h3 style="margin:0;font-size:14px;font-weight:600;color:#70737C">Accent · 코스 구간 / 랭킹 배지용</h3>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <div style="width:64px;height:64px;border-radius:12px;background:#FF5E00" title="redOrange"></div>
+        <div style="width:64px;height:64px;border-radius:12px;background:#58CF04" title="lime"></div>
+        <div style="width:64px;height:64px;border-radius:12px;background:#00BDDE" title="cyan"></div>
+        <div style="width:64px;height:64px;border-radius:12px;background:#00AEFF" title="lightBlue"></div>
+        <div style="width:64px;height:64px;border-radius:12px;background:#6541F2" title="violet"></div>
+        <div style="width:64px;height:64px;border-radius:12px;background:#CB59FF" title="purple"></div>
+        <div style="width:64px;height:64px;border-radius:12px;background:#F553DA" title="pink"></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:20px">
+    <h2 style="margin:0;font-size:22px;font-weight:700">타이포그래피</h2>
+    <div style="display:flex;flex-direction:column;gap:0;border-top:1px solid #EAEBEC">
+      <div style="display:flex;align-items:baseline;gap:24px;padding:16px 0;border-bottom:1px solid #EAEBEC"><span style="width:110px;flex:none;font-size:12px;color:#70737C;font-family:ui-monospace,monospace">display1/700</span><span style="font-size:56px;line-height:1.15;font-weight:700;letter-spacing:-0.03em">10.2km</span></div>
+      <div style="display:flex;align-items:baseline;gap:24px;padding:16px 0;border-bottom:1px solid #EAEBEC"><span style="width:110px;flex:none;font-size:12px;color:#70737C;font-family:ui-monospace,monospace">title1/700</span><span style="font-size:32px;line-height:1.2;font-weight:700;letter-spacing:-0.025em">이번 주 러닝 요약</span></div>
+      <div style="display:flex;align-items:baseline;gap:24px;padding:16px 0;border-bottom:1px solid #EAEBEC"><span style="width:110px;flex:none;font-size:12px;color:#70737C;font-family:ui-monospace,monospace">heading1/600</span><span style="font-size:22px;line-height:1.3;font-weight:600">탄천 종합운동장 구간</span></div>
+      <div style="display:flex;align-items:baseline;gap:24px;padding:16px 0;border-bottom:1px solid #EAEBEC"><span style="width:110px;flex:none;font-size:12px;color:#70737C;font-family:ui-monospace,monospace">body1/400</span><span style="font-size:16px;line-height:1.5">오늘도 탄천을 따라 5km를 달렸어요. 평균 페이스는 5분 40초였습니다.</span></div>
+      <div style="display:flex;align-items:baseline;gap:24px;padding:16px 0;border-bottom:1px solid #EAEBEC"><span style="width:110px;flex:none;font-size:12px;color:#70737C;font-family:ui-monospace,monospace">label1/600</span><span style="font-size:14px;line-height:1.4;font-weight:600">평균 페이스</span></div>
+      <div style="display:flex;align-items:baseline;gap:24px;padding:16px 0"><span style="width:110px;flex:none;font-size:12px;color:#70737C;font-family:ui-monospace,monospace">caption1/400</span><span style="font-size:12px;line-height:1.3;color:#70737C">2026.09.09 · 미금역 ~ 오리역</span></div>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:20px">
+    <h2 style="margin:0;font-size:22px;font-weight:700">스페이싱 &amp; 라운딩</h2>
+    <div style="display:flex;flex-wrap:wrap;gap:16px 28px;align-items:flex-end">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:4px;height:4px;background:#0066FF"></div><span style="font-size:11px;color:#70737C">4</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:8px;height:8px;background:#0066FF"></div><span style="font-size:11px;color:#70737C">8</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:12px;height:12px;background:#0066FF"></div><span style="font-size:11px;color:#70737C">12</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:16px;height:16px;background:#0066FF"></div><span style="font-size:11px;color:#70737C">16</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:24px;height:24px;background:#0066FF"></div><span style="font-size:11px;color:#70737C">24</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:32px;height:32px;background:#0066FF"></div><span style="font-size:11px;color:#70737C">32</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:48px;height:48px;background:#0066FF"></div><span style="font-size:11px;color:#70737C">48</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:64px;height:64px;background:#0066FF"></div><span style="font-size:11px;color:#70737C">64</span></div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end;margin-top:8px">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:56px;height:56px;background:#EAF2FE;border-radius:8px"></div><span style="font-size:11px;color:#70737C">radius 8 (small)</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:56px;height:56px;background:#EAF2FE;border-radius:10px"></div><span style="font-size:11px;color:#70737C">radius 10 (medium)</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:56px;height:56px;background:#EAF2FE;border-radius:12px"></div><span style="font-size:11px;color:#70737C">radius 12 (large)</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:56px;height:56px;background:#EAF2FE;border-radius:16px"></div><span style="font-size:11px;color:#70737C">radius 16 (card)</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:56px;height:56px;background:#EAF2FE;border-radius:999px"></div><span style="font-size:11px;color:#70737C">pill</span></div>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:32px">
+    <h2 style="margin:0;font-size:22px;font-weight:700">공용 컴포넌트</h2>
+
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <h3 style="margin:0;font-size:15px;font-weight:600;color:#5A5C63">Button</h3>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+        <button style="border:none;cursor:pointer;border-radius:10px;padding:9px 20px;background:#0066FF;color:#fff;font-size:15px;font-weight:700;font-family:inherit">기록 시작</button>
+        <button style="border:none;cursor:pointer;border-radius:10px;padding:9px 20px;background:rgba(112,115,124,0.08);color:#46474C;font-size:15px;font-weight:500;font-family:inherit">나중에</button>
+        <button style="cursor:pointer;border-radius:10px;padding:9px 20px;background:transparent;color:#0066FF;font-size:15px;font-weight:700;font-family:inherit;border:1px solid rgba(112,115,124,0.22)">코스 보기</button>
+        <button style="border:none;cursor:pointer;border-radius:8px;padding:7px 14px;background:#0066FF;color:#fff;font-size:13px;font-weight:700;font-family:inherit">small</button>
+        <button disabled style="border:none;cursor:not-allowed;border-radius:10px;padding:9px 20px;background:#E1E2E4;color:#AEB0B6;font-size:15px;font-weight:700;font-family:inherit">비활성</button>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <h3 style="margin:0;font-size:15px;font-weight:600;color:#5A5C63">Chip / 구간 태그</h3>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <span style="padding:6px 14px;border-radius:999px;background:#EAF2FE;color:#0054D1;font-size:13px;font-weight:600">종합운동장</span>
+        <span style="padding:6px 14px;border-radius:999px;background:#F2FFF6;color:#006E25;font-size:13px;font-weight:600">탄천교</span>
+        <span style="padding:6px 14px;border-radius:999px;background:#FEF4E6;color:#9C5800;font-size:13px;font-weight:600">미금역</span>
+        <span style="padding:6px 14px;border-radius:999px;background:rgba(112,115,124,0.08);color:#46474C;font-size:13px;font-weight:600">전체 코스</span>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <h3 style="margin:0;font-size:15px;font-weight:600;color:#5A5C63">Segmented Control</h3>
+      <div style="display:inline-flex;gap:2px;padding:2px;background:#EAEBEC;border-radius:10px;width:fit-content">
+        <sc-for list="{{ segments }}" as="seg" hint-placeholder-count="2">
+          <button style="{{ seg.style }}" onClick="{{ seg.onClick }}">{{ seg.label }}</button>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <h3 style="margin:0;font-size:15px;font-weight:600;color:#5A5C63">Search Field</h3>
+      <div style="display:flex;align-items:center;gap:8px;width:320px;padding:10px 14px;border-radius:10px;background:#F7F7F8;border:1px solid #EAEBEC">
+        <span style="width:16px;height:16px;border-radius:999px;border:2px solid #70737C;flex:none"></span>
+        <input placeholder="러너 또는 코스 검색" style="border:none;background:transparent;outline:none;font-size:14px;font-family:inherit;color:#171719;width:100%"></input>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <h3 style="margin:0;font-size:15px;font-weight:600;color:#5A5C63">Stat Card · 러닝 요약</h3>
+      <div style="width:100%;max-width:375px;padding:20px;border-radius:16px;background:#fff;box-shadow:0px 4px 6px -2px rgba(23,23,23,0.07),0px 10px 15px -3px rgba(23,23,23,0.07);display:flex;flex-direction:column;gap:16px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline">
+          <span style="font-size:15px;font-weight:600">오늘의 러닝</span>
+          <span style="font-size:12px;color:#70737C">탄천교 ~ 오리역</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px">
+          <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:24px;font-weight:700;letter-spacing:-0.02em">6.4</span><span style="font-size:12px;color:#70737C">거리(km)</span></div>
+          <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:24px;font-weight:700;letter-spacing:-0.02em">32:18</span><span style="font-size:12px;color:#70737C">시간</span></div>
+          <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:24px;font-weight:700;letter-spacing:-0.02em">5'02"</span><span style="font-size:12px;color:#70737C">평균 페이스</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <h3 style="margin:0;font-size:15px;font-weight:600;color:#5A5C63">Course Card</h3>
+      <div style="width:220px;display:flex;flex-direction:column;gap:6px">
+        <div style="width:100%;aspect-ratio:4/3;border-radius:12px;background:repeating-linear-gradient(135deg,#EAF2FE,#EAF2FE 10px,#F7FBFF 10px,#F7FBFF 20px);display:flex;align-items:center;justify-content:center;color:#5A5C63;font-size:11px;font-family:ui-monospace,monospace;text-align:center;padding:8px">코스 지도<br>썸네일</div>
+        <span style="font-size:15px;font-weight:700">탄천 전체 코스</span>
+        <span style="font-size:13px;color:#70737C">18.2km · 난이도 중</span>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <h3 style="margin:0;font-size:15px;font-weight:600;color:#5A5C63">Ranking List</h3>
+      <div style="width:100%;max-width:375px;display:flex;flex-direction:column;border-radius:16px;background:#fff;box-shadow:0px 1px 2px -1px rgba(23,23,23,0.1);overflow:hidden">
+        <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid #F4F4F5">
+          <span style="width:24px;text-align:center;font-size:14px;font-weight:700;color:#FF9200">1</span>
+          <span style="width:36px;height:36px;border-radius:999px;background:#EAF2FE;flex:none"></span>
+          <div style="display:flex;flex-direction:column;gap:1px;flex:1"><span style="font-size:14px;font-weight:600">러너_민수</span><span style="font-size:12px;color:#70737C">탄천 전체 코스</span></div>
+          <span style="font-size:14px;font-weight:700">4'48"</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid #F4F4F5">
+          <span style="width:24px;text-align:center;font-size:14px;font-weight:700;color:#8A8A8A">2</span>
+          <span style="width:36px;height:36px;border-radius:999px;background:#F2FFF6;flex:none"></span>
+          <div style="display:flex;flex-direction:column;gap:1px;flex:1"><span style="font-size:14px;font-weight:600">러너_지은</span><span style="font-size:12px;color:#70737C">탄천 전체 코스</span></div>
+          <span style="font-size:14px;font-weight:700">4'55"</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:14px 16px">
+          <span style="width:24px;text-align:center;font-size:14px;font-weight:700;color:#D17600">3</span>
+          <span style="width:36px;height:36px;border-radius:999px;background:#FEF4E6;flex:none"></span>
+          <div style="display:flex;flex-direction:column;gap:1px;flex:1"><span style="font-size:14px;font-weight:600">러너_하늘</span><span style="font-size:12px;color:#70737C">탄천 전체 코스</span></div>
+          <span style="font-size:14px;font-weight:700">5'03"</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <h3 style="margin:0;font-size:15px;font-weight:600;color:#5A5C63">Progress · 목표 달성률</h3>
+      <div style="width:100%;max-width:375px;display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#5A5C63">이번 달 목표 40km</span><span style="font-weight:700;color:#0066FF">68%</span></div>
+        <div style="width:100%;height:8px;border-radius:999px;background:#EAEBEC"><div style="width:68%;height:100%;border-radius:999px;background:#0066FF"></div></div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <h3 style="margin:0;font-size:15px;font-weight:600;color:#5A5C63">Bottom Navigation</h3>
+      <div style="width:100%;max-width:375px;display:flex;align-items:center;border-top:1px solid #EAEBEC;background:#fff;border-radius:0 0 16px 16px;overflow:hidden">
+        <sc-for list="{{ tabs }}" as="tab" hint-placeholder-count="4">
+          <button style="{{ tab.buttonStyle }}" onClick="{{ tab.onClick }}">
+            <span style="{{ tab.iconStyle }}"></span>
+            <span style="{{ tab.labelStyle }}">{{ tab.label }}</span>
+          </button>
+        </sc-for>
+      </div>
+    </div>
+
+  </section>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { tab: 'home', segment: 0 };
+
+  renderVals() {
+    const iconShape = { home: '4px', record: '999px', ranking: '999px', profile: '999px' };
+    const tabDefs = [
+      { id: 'home', label: '홈' },
+      { id: 'record', label: '러닝' },
+      { id: 'ranking', label: '랭킹' },
+      { id: 'profile', label: '프로필' },
+    ];
+    const tabs = tabDefs.map((t) => {
+      const active = t.id === this.state.tab;
+      const color = active ? '#0066FF' : '#8A8A8A';
+      return {
+        ...t,
+        onClick: () => this.setState({ tab: t.id }),
+        buttonStyle: `flex:1 1 0;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 0;background:transparent;border:none;cursor:pointer;font-family:inherit`,
+        iconStyle: `width:22px;height:22px;border-radius:${iconShape[t.id]};background:${color}`,
+        labelStyle: `font-size:11px;font-weight:${active ? '600' : '500'};color:${color}`,
+      };
+    });
+
+    const segmentDefs = ['탄천 전체', '구간별'];
+    const segments = segmentDefs.map((label, i) => {
+      const active = i === this.state.segment;
+      return {
+        label,
+        onClick: () => this.setState({ segment: i }),
+        style: `border:none;cursor:pointer;font-family:inherit;padding:8px 18px;border-radius:8px;font-size:13px;font-weight:600;background:${active ? '#fff' : 'transparent'};color:${active ? '#171719' : '#70737C'};box-shadow:${active ? '0px 1px 2px -1px rgba(23,23,23,0.1)' : 'none'}`,
+      };
+    });
+
+    return { tabs, segments };
+  }
+}
+
+</script>
+</body>
+</html>

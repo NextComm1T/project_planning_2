@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet data-dc-atomics>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<style>
+  body{margin:0;background:#EAEBEC;font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;color:#171719;display:flex;justify-content:center;padding:32px 16px}
+  a{color:#0066FF}
+  a:hover{color:#005EEB}
+</style>
+</helmet>
+
+<div style="width:390px;height:844px;flex:none;background:#fff;border-radius:36px;overflow:hidden;position:relative;box-shadow:0px 24px 38px -10px rgba(23,23,23,0.18);display:flex;flex-direction:column">
+
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column">
+    <div style="flex:1;position:relative;background:repeating-linear-gradient(135deg,#EAF2FE,#EAF2FE 14px,#F7FBFF 14px,#F7FBFF 28px)">
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#5A5C63;font-size:12px;font-family:ui-monospace,monospace;text-align:center;line-height:1.6">탄천 러닝 코스<br>지도 미리보기</div>
+
+      <div style="position:absolute;top:64px;left:20px;right:20px;display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:17px;font-weight:700;letter-spacing:-0.01em;white-space:nowrap;flex-shrink:0">탄천 러너</span>
+        <span style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,0.88);backdrop-filter:blur(12px);font-size:12px;font-weight:600;color:#171719;white-space:nowrap;flex-shrink:0">
+          <span style="width:6px;height:6px;border-radius:999px;background:#00BF40"></span>GPS 연결됨
+        </span>
+      </div>
+
+      <div style="position:absolute;bottom:16px;left:20px;padding:10px 14px;border-radius:14px;background:rgba(255,255,255,0.88);backdrop-filter:blur(12px);display:flex;flex-direction:column;gap:2px">
+        <span style="font-size:12px;color:#70737C">현재 위치</span>
+        <span style="font-size:14px;font-weight:700">미금역 인근 · 탄천교 500m 앞</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="position:relative;margin-top:auto;background:#fff;border-radius:24px 24px 0 0;box-shadow:0px -10px 15px -3px rgba(23,23,23,0.07);padding:12px 20px 16px;display:flex;flex-direction:column;gap:16px;z-index:1">
+    <div style="width:36px;height:4px;border-radius:999px;background:#EAEBEC;margin:0 auto"></div>
+
+    <div style="display:inline-flex;gap:2px;padding:2px;background:#EAEBEC;border-radius:10px;width:fit-content">
+      <sc-for list="{{ segments }}" as="seg" hint-placeholder-count="2">
+        <button style="{{ seg.style }}" onClick="{{ seg.onClick }}">{{ seg.label }}</button>
+      </sc-for>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <span style="font-size:16px;font-weight:700">{{ course.name }}</span>
+        <span style="font-size:13px;color:#70737C">{{ course.meta }}</span>
+      </div>
+      <button style="border:1px solid #EAEBEC;background:transparent;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#0066FF;padding:8px 14px;border-radius:8px">코스 변경</button>
+    </div>
+
+    <div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:8px 0 4px">
+      <button style="width:128px;height:128px;border-radius:999px;border:none;cursor:pointer;background:#0066FF;box-shadow:0 0 0 8px #EAF2FE;color:#fff;font-family:inherit;font-size:20px;font-weight:700;letter-spacing:-0.01em">시작</button>
+      <span style="font-size:12px;color:#70737C">탭해서 러닝을 시작하세요</span>
+    </div>
+  </div>
+
+  <div style="display:flex;align-items:center;border-top:1px solid #EAEBEC;background:#fff;z-index:1">
+    <sc-for list="{{ tabs }}" as="tab" hint-placeholder-count="4">
+      <button style="{{ tab.buttonStyle }}" onClick="{{ tab.onClick }}">
+        <span style="{{ tab.iconStyle }}"></span>
+        <span style="{{ tab.labelStyle }}">{{ tab.label }}</span>
+      </button>
+    </sc-for>
+  </div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { tab: 'home', segment: 0 };
+
+  renderVals() {
+    const iconShape = { home: '4px', record: '999px', ranking: '999px', profile: '999px' };
+    const tabDefs = [
+      { id: 'home', label: '홈' },
+      { id: 'record', label: '러닝' },
+      { id: 'ranking', label: '랭킹' },
+      { id: 'profile', label: '프로필' },
+    ];
+    const tabs = tabDefs.map((t) => {
+      const active = t.id === this.state.tab;
+      const color = active ? '#0066FF' : '#8A8A8A';
+      return {
+        ...t,
+        onClick: () => this.setState({ tab: t.id }),
+        buttonStyle: `flex:1 1 0;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 0;background:transparent;border:none;cursor:pointer;font-family:inherit`,
+        iconStyle: `width:22px;height:22px;border-radius:${iconShape[t.id]};background:${color}`,
+        labelStyle: `font-size:11px;font-weight:${active ? '600' : '500'};color:${color}`,
+      };
+    });
+
+    const courses = [
+      { name: '탄천 전체 코스', meta: '18.2km · 난이도 중' },
+      { name: '탄천교 ~ 오리역 구간', meta: '6.4km · 난이도 하' },
+    ];
+    const segmentDefs = ['탄천 전체', '구간별'];
+    const segments = segmentDefs.map((label, i) => {
+      const active = i === this.state.segment;
+      return {
+        label,
+        onClick: () => this.setState({ segment: i }),
+        style: `border:none;cursor:pointer;font-family:inherit;padding:8px 18px;border-radius:8px;font-size:13px;font-weight:600;background:${active ? '#fff' : 'transparent'};color:${active ? '#171719' : '#70737C'};box-shadow:${active ? '0px 1px 2px -1px rgba(23,23,23,0.1)' : 'none'}`,
+      };
+    });
+
+    return { tabs, segments, course: courses[this.state.segment] };
+  }
+}
+
+</script>
+</body>
+</html>

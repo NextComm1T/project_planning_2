@@ -1,0 +1,62 @@
+/* tokens.css
+   출처: design_System/Design System.dc.html (montage-web WDS atomic/semantic 토큰)
+   Wireframe 전용으로 필요한 값만 옮겨왔다. */
+
+:root {
+  /* Primary */
+  --primary-normal: #0066FF;
+  --primary-strong: #005EEB;
+  --primary-heavy:  #0054D1;
+  --primary-bg:     #EAF2FE;
+
+  /* Label */
+  --label-normal:    #171719;
+  --label-neutral:   #46474C;
+  --label-alt:       #70737C;
+  --label-assistive: #AEB0B6;
+  --label-disable:   #C2C4C8;
+
+  /* Background / Line */
+  --bg-normal: #FFFFFF;
+  --bg-alt:    #F7F7F8;
+  --line-normal:  #DBDCDF;
+  --line-neutral: #EAEBEC;
+  --line-subtle:  #F4F4F5;
+  --fill-subtle:  rgba(112,115,124,0.08);
+
+  /* Status */
+  --positive:  #00BF40;
+  --cautionary:#FF9200;
+  --negative:  #FF4242;
+  --positive-bg:  #F2FFF6;
+  --positive-fg:  #006E25;
+  --caution-bg:   #FEF4E6;
+  --caution-fg:   #9C5800;
+  --negative-bg:  #FFF1F1;
+  --negative-fg:  #C22B2B;
+
+  /* Disabled */
+  --disabled-bg: #E1E2E4;
+  --disabled-fg: #AEB0B6;
+
+  /* Radius */
+  --r-sm: 8px;
+  --r-md: 10px;
+  --r-lg: 12px;
+  --r-card: 16px;
+  --r-pill: 999px;
+
+  /* Spacing */
+  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+  --sp-5: 20px; --sp-6: 24px; --sp-8: 32px; --sp-12: 48px;
+
+  /* Type */
+  --font: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont,
+          'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Wireframe 검토 chrome 전용 */
+  --chrome-bg: #1D1E22;
+  --chrome-fg: #E7E8EA;
+  --chrome-line: #33353B;
+}
