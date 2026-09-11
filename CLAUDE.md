@@ -6,8 +6,10 @@
 > **현재 단계**: 이 저장소에는 아직 `docs/` 아래 기획 문서만 있다. 화면·코드는 Claude Design 에서
 > Claude Code 로 불러올 예정이며, 그 전까지 코드 관련 규칙(lint·test·build)은 적용 대상이 없다.
 >
-> **에이전트는 고정이다** — `.claude/agents/` 의 planning-partner · product-planner · product-builder 는
-> 강사가 직접 작성한 프롬프트다. 이 세 개만 쓰고, 정의 파일을 고치거나 새 에이전트를 만들지 않는다.
+> **에이전트** — `.claude/agents/` 의 planning-partner · product-planner · product-builder 는 강사가 직접
+> 작성한 프롬프트다. **받아 쓰는 것이 원칙이며 정의 파일을 임의로 고치지 않는다.** 팀에 필요한 에이전트는
+> 같은 폴더에 새로 추가해도 된다 — 기존 세 개의 역할(기획 인터뷰 · 문서 검토 · 화면 구현)과 겹치지 않게 두고,
+> 무엇을 하는 에이전트인지 `description` 에 적는다.
 
 ## 1. Source of Truth
 
