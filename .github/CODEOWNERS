@@ -1,0 +1,14 @@
+# 아래 예시는 반드시 실제 GitHub 사용자/팀으로 교체한다.
+# 형식: <path> <owner>
+#
+# 전체 기본 reviewer
+# * @YOUR_ORG/dev-team
+#
+# 예시:
+# /src/components/ @YOUR_ORG/frontend
+# /src/server/     @YOUR_ORG/backend
+# /infra/          @YOUR_ORG/maintainers
+# /.github/        @YOUR_ORG/maintainers
+#
+# 팀이 작다면 우선 아래처럼 maintainer 1~2명만 설정해도 된다.
+# * @github-id-1 @github-id-2
