@@ -1,7 +1,13 @@
 # Project Instructions
 
 > 이 저장소의 모든 Claude Code 세션이 공통으로 따라야 하는 최상위 규칙이다.
-> 세부 규칙은 `.claude/rules/`, 반복 절차는 `.claude/skills/`, 독립 검토 역할은 `.claude/agents/`에 둔다.
+> 세부 규칙은 `.claude/rules/`, 반복 절차는 `.claude/skills/`, 기획·구현 역할은 `.claude/agents/`에 둔다.
+>
+> **현재 단계**: 이 저장소에는 아직 `docs/` 아래 기획 문서만 있다. 화면·코드는 Claude Design 에서
+> Claude Code 로 불러올 예정이며, 그 전까지 코드 관련 규칙(lint·test·build)은 적용 대상이 없다.
+>
+> **에이전트는 고정이다** — `.claude/agents/` 의 planning-partner · product-planner · product-builder 는
+> 강사가 직접 작성한 프롬프트다. 이 세 개만 쓰고, 정의 파일을 고치거나 새 에이전트를 만들지 않는다.
 
 ## 1. Source of Truth
 
@@ -9,10 +15,10 @@
 
 1. 현재 Git branch와 working tree 상태
 2. 작업 대상 GitHub Issue / 요구사항
-3. 관련 기존 코드와 테스트
-4. `docs/PROJECT_COMMANDS.md`
-5. `docs/ARCHITECTURE.md`
-6. `.claude/rules/`의 관련 규칙
+3. `docs/` 의 기획 문서 체인 (01-problem → 02-workflow → 03-requirements → 04-features → 05-policy → 06-data)
+4. 관련 기존 코드와 테스트 (코드가 들어온 뒤부터)
+5. `.claude/rules/`의 관련 규칙
+6. `docs/PROJECT_COMMANDS.md` · `docs/ARCHITECTURE.md` (코드와 함께 추가 예정 — 아직 없음)
 
 요구사항과 코드가 충돌하면 임의로 추측하지 말고 차이를 명시한다.
 
@@ -81,5 +87,4 @@ PR 제목도 Conventional Commits 형식을 사용한다.
 - `fix: GPS 권한 거부 시 무한 로딩 수정`
 - `refactor: 랭킹 조회 로직 서비스 계층 분리`
 
-@docs/PROJECT_COMMANDS.md
-@docs/ARCHITECTURE.md
+> 코드가 들어오면 `docs/PROJECT_COMMANDS.md` 와 `docs/ARCHITECTURE.md` 를 추가하고 여기서 `@` 로 불러온다.

@@ -20,6 +20,7 @@ chore/<issue>-<slug>
 - 하나의 branch는 하나의 Issue를 기본으로 한다.
 - 새 branch는 최신 `main`에서 만든다.
 - 팀원의 branch를 임의로 force-push하지 않는다.
+- 이슈 번호를 붙이는 규칙은 2026-09-11부터 적용한다. 그 전에 만든 branch(`docs/06-data-wbc`, `design-ysb` 등)는 예외로 두고 이름을 바꾸지 않는다.
 
 ## Commit
 
