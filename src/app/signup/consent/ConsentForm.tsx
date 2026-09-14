@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, type ReactNode } from "react";
+import { useSyncExternalStore, type ReactNode } from "react";
 
 type ConsentFormProps = {
   /** 동의 카드와 계속하기 버튼 사이에 들어가는 정적 블록(개인정보처리방침 카드). */
@@ -10,15 +10,76 @@ type ConsentFormProps = {
 };
 
 /**
- * 필수 동의 항목과 계속하기 버튼 — 디자인 L107-132.
+ * 동의 상태를 담아 두는 자리(#38 인수 조건).
  *
- * 동의 상태는 이 컴포넌트의 지역 상태다. 서버가 없어 저장하지 않고,
- * 상세 화면(`/signup/consent/detail`)에 다녀왔을 때의 상태 유지는 그 화면을
- * 만드는 #38 에서 연결한다 — modify/2026-09-14-signup-consent.md 6번.
+ * 이 화면을 떠났다 돌아오는 경로가 셋인데 **두 개가 이 폴더 밖이다** —
+ * 상세(`/signup/consent/detail`)는 같은 segment 안이지만, 개인정보처리방침
+ * (`/privacy-policy`)과 닉네임 설정(`/signup/nickname`)은 아니다. 그래서
+ * `signup/consent/layout.tsx` 에 Context 를 두는 방법으로는 세 경로를 다 덮지
+ * 못한다(그 layout 이 언마운트된다). sessionStorage 는 셋 다 덮고 탭을 닫으면
+ * 사라진다 — 근거는 modify/2026-09-14-signup-consent.md 6번.
+ *
+ * 저장하는 값은 **체크박스 UI 상태뿐**이라 개인정보가 아니고 SP3 수집 범위와
+ * 무관하다. 서버가 붙으면 동의 여부·일시는 그때 서버에 저장한다(같은 문서 4번).
+ */
+const STORAGE_KEY = "signup-consent-agreed";
+
+/** 값이 바뀌었을 때 다시 그려야 할 구독자들. 같은 탭 안에서만 쓴다. */
+const listeners = new Set<() => void>();
+
+/**
+ * 저장된 동의 상태를 읽는다.
+ *
+ * `sessionStorage` 는 **문자열 저장소**라서 해제 상태는 `"false"` 로 들어간다.
+ * `"false"` 도 truthy 이므로 `Boolean(getItem(...))` 로 읽으면 해제가 체크로
+ * 되살아난다 — `"true"` 와 정확히 비교한다. 그 밖의 값·`null`·접근 실패는 전부
+ * 미동의로 본다.
+ */
+function readAgreed() {
+  try {
+    return sessionStorage.getItem(STORAGE_KEY) === "true";
+  } catch {
+    // 프라이빗 모드·차단 등으로 읽을 수 없으면 미동의로 시작한다.
+    return false;
+  }
+}
+
+/** 해제(`false`)도 반드시 기록한다 — 그래야 돌아왔을 때 해제 상태로 복원된다. */
+function writeAgreed(next: boolean) {
+  try {
+    sessionStorage.setItem(STORAGE_KEY, String(next));
+  } catch {
+    // 저장만 포기하고 화면 조작은 막지 않는다.
+  }
+
+  listeners.forEach((notify) => notify());
+}
+
+function subscribe(notify: () => void) {
+  listeners.add(notify);
+  return () => {
+    listeners.delete(notify);
+  };
+}
+
+/**
+ * 필수 동의 항목과 계속하기 버튼 — 디자인 L107-132.
  */
 export function ConsentForm({ children }: ConsentFormProps) {
   const router = useRouter();
-  const [agreed, setAgreed] = useState(false);
+
+  /*
+    sessionStorage 는 React 밖의 저장소라 useSyncExternalStore 로 읽는다.
+    세 번째 인자(서버 스냅샷)가 항상 false 라서 서버 HTML 과 hydration 이
+    미동의 상태로 일치하고, 붙은 뒤에 저장된 값으로 다시 그려진다.
+    effect 에서 setState 하는 방식(react-hooks/set-state-in-effect)을 피하는
+    자리이기도 하다.
+  */
+  const agreed = useSyncExternalStore(subscribe, readAgreed, () => false);
+
+  function handleToggle() {
+    writeAgreed(!agreed);
+  }
 
   /**
    * TODO(F8 · F10): 서버가 붙으면 여기서 동의 결과를 저장한 뒤 닉네임 설정으로
@@ -41,7 +102,7 @@ export function ConsentForm({ children }: ConsentFormProps) {
             type="button"
             role="checkbox"
             aria-checked={agreed}
-            onClick={() => setAgreed((prev) => !prev)}
+            onClick={handleToggle}
             /*
               세로 여백 11px 로 hit area 를 48px 로 만들고, 음수 margin 으로
               레이아웃 높이는 체크 네모 26px 그대로 둔다 — 카드 높이를
