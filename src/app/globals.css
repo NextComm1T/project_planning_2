@@ -1,0 +1,105 @@
+/* Pretendard — 탄천런.dc.html L11 과 같은 소스 */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+@import "tailwindcss";
+
+/*
+ * 디자인 토큰 — 값의 출처는 전부 루트 `탄천런.dc.html` 이다.
+ * 괄호 안은 그 파일의 줄 번호. 근거 없는 값은 만들지 않는다.
+ *
+ * @theme static 에 선언하면 Tailwind 유틸리티(bg-surface, text-title, rounded-xl …)와
+ * CSS 변수(var(--color-surface))가 함께 생긴다.
+ * static 을 붙이지 않으면 Tailwind 가 안 쓰인 토큰을 지워서, 손으로 쓴 CSS 의
+ * var(--color-primary) 같은 참조가 조용히 깨진다.
+ */
+@theme static {
+  /* 면 */
+  --color-canvas: #e9f1fa; /* 앱 컬럼 바깥 (L13) */
+  --color-background: #fbf7ef; /* 페이지 · 헤더 배경 (L20, L377) */
+  --color-surface: #ffffff; /* 카드 · 탭바 (L385, L921) */
+  --color-surface-muted: #f1ede2; /* divider · 아이콘 버튼 면 (L377, L378) */
+  --color-border: #efe7d8; /* 카드 테두리 (L385) */
+
+  /* 글자 */
+  --color-foreground: #1e2e4f; /* 기본 (L20) */
+  --color-subtle: #6a7488; /* 긴 본문 문단 (L492) */
+  --color-muted: #8b93a5; /* 라벨 · 캡션 (L384) */
+  --color-disabled: #b6bdc9; /* 비활성 탭 (L1370) */
+
+  /* 브랜드 */
+  --color-primary: #2f6fe8; /* CTA (L367) */
+  --color-primary-strong: #1e52bc; /* hover · 뱃지 글자 (L16, L220) */
+  --color-primary-soft: #dcebfa; /* 뱃지 배경 (L220) */
+  --color-on-primary: #ffffff;
+
+  /* 상태 */
+  --color-success: #3f7f31; /* 탄천 인정 (L272) */
+  --color-success-soft: #e8f5de; /* (L303) */
+  --color-danger: #ef6a5e; /* 러닝 중단 · 탈퇴 (L288, L430) */
+  --color-error: #c4483c; /* (L83) */
+  --color-error-soft: #fdecea;
+  --color-error-border: #f6cfc9;
+  --color-warning: #9b7419; /* GPS 약함 (L215) */
+  --color-warning-soft: #fdf3d5;
+  --color-warning-border: #f6e3a8;
+
+  /* 로그인 화면 */
+  --color-kakao: #fbd95f; /* 카카오 버튼 (L78) — 공식 #FEE500 이 아니다 */
+  --color-sky: #b0dbfe; /* 히어로 상단 띠 (L35) */
+  --color-link-muted: #a6aebc; /* 개인정보처리방침 링크 (L88) */
+  --color-wordmark: #cfd5de; /* TANCHEON RUN (L89) */
+
+  /* 타이포 — Tailwind 기본 text-sm/base/lg 와 이름이 겹치지 않게 별도 스케일 */
+  --font-sans: Pretendard, system-ui, -apple-system, sans-serif; /* L13 */
+  --text-caption: 11px;
+  --text-label: 12px;
+  --text-content: 15px;
+  --text-button: 17px;
+  --text-title: 20px; /* 서브페이지 h1 (L381) */
+  --text-display: 32px; /* 탭 루트 h1 (L776) */
+  --text-hero: 34px; /* 온보딩 (L69) */
+
+  /* 모서리 — Tailwind 기본값을 의도적으로 덮어쓴다 */
+  --radius-sm: 14px; /* 아이콘 버튼 (L378) */
+  --radius-md: 16px; /* 에러 박스 (L83) */
+  --radius-lg: 18px; /* 보조 버튼 (L945) */
+  --radius-xl: 20px; /* CTA (L367) */
+  --radius-2xl: 22px; /* 카드 (L385) */
+  --radius-3xl: 24px; /* 모달 (L940) */
+
+  /* 그림자 */
+  --shadow-card: 0 2px 10px rgb(30 46 79 / 0.06); /* 표준 카드, 30회 */
+  --shadow-modal: 0 12px 32px rgb(30 46 79 / 0.24); /* (L940) */
+  --shadow-primary: 0 4px 12px rgb(47 111 232 / 0.25);
+  --shadow-button: 0 2px 8px rgb(30 46 79 / 0.08); /* 카카오 버튼 (L78) */
+  --shadow-button-soft: 0 2px 8px rgb(30 46 79 / 0.05); /* 구글 버튼 (L81) */
+}
+
+/*
+ * Tailwind 네임스페이스에 대응이 없는 레이아웃 상수.
+ * 간격은 Tailwind 기본 스케일(p-1=4px … p-6=24px)이 탄천런의 수치와
+ * 그대로 맞아떨어지므로 --space-* 를 따로 만들지 않는다.
+ */
+:root {
+  --app-max-width: 390px; /* 프레임 폭 (L20). 높이 844px 은 옮기지 않는다 */
+  --page-padding-x: 20px; /* 콘텐츠 좌우 여백 */
+  --header-height: 58px; /* 4 + 40(버튼) + 14 (L377) */
+  --tap-min-size: 48px; /* 최소 터치 영역, docs/07-screens.md:15 */
+  color-scheme: light; /* 디자인에 다크 테마가 없다 */
+}
+
+@layer base {
+  html {
+    height: 100%;
+  }
+
+  body {
+    min-height: 100%;
+    /* 가로 스크롤 금지(docs/07-screens.md:15). AppShell 컬럼이 아니라 여기에
+       두어야 헤더의 position:sticky 가 뷰포트 기준으로 계속 동작한다. */
+    overflow-x: hidden;
+    background: var(--color-canvas);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+}
