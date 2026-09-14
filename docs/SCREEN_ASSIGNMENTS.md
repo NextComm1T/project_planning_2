@@ -2,6 +2,7 @@
 
 누가 어느 화면을 맡는지, 그 화면의 디자인 원본이 어디인지 적는 표다.
 
+- **Claude Code 로 바로 시작하기: [CLAUDE_PROMPTS.md](./CLAUDE_PROMPTS.md)** ← 복사해 붙여 넣는 프롬프트
 - 만드는 방법: [ARCHITECTURE.md](./ARCHITECTURE.md)
 - 실행·검증 명령: [PROJECT_COMMANDS.md](./PROJECT_COMMANDS.md)
 - git 흐름(브랜치·커밋·PR·머지): [../CONTRIBUTING.md](../CONTRIBUTING.md)
