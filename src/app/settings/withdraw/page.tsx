@@ -1,6 +1,8 @@
 import { AppShell } from "@/components/shared/AppShell";
 import { Header } from "@/components/shared/Header";
 
+import { WithdrawButton } from "./WithdrawButton";
+
 /**
  * 회원탈퇴 — 삭제 항목 확인 단계(디자인 L567-594 · F13 · P12 · P13).
  *
@@ -108,22 +110,10 @@ export default async function SettingsWithdrawPage({
         ) : null}
 
         {/*
-          TODO(F13 · #46): 누르면 "정말 탈퇴하시겠어요?" 확인 모달(디자인
-          L951-965)을 연다. 그 모달은 #46 이 만들고(SCREEN_ASSIGNMENTS 938-965)
-          이 이슈의 제외 범위라, 아직 아무 일도 하지 않는다 — 지울 서버도 없어
-          가짜 성공·실패로 흉내내지 않는다.
+          확정 버튼과 최종 확인 모달(디자인 L590 · L951-965)은 상호작용이 있어
+          클라이언트 조각으로 뺐다. 모달은 #46 의 `../ConfirmDialog` 를 그대로 쓴다.
         */}
-        <button
-          type="button"
-          disabled={isBlocked}
-          className={`mt-1.5 h-[58px] w-full rounded-xl text-button font-extrabold ${
-            isBlocked
-              ? "cursor-not-allowed bg-disabled-surface text-disabled"
-              : "bg-danger text-on-primary shadow-danger"
-          }`}
-        >
-          회원탈퇴
-        </button>
+        <WithdrawButton disabled={isBlocked} />
       </div>
     </AppShell>
   );
