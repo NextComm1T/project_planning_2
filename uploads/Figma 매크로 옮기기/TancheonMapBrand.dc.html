@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="width:100%;height:100%;">
+  <svg viewBox="{{ viewBox }}" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style="display:block">
+    <rect width="340" height="220" fill="#FAF6EC"></rect>
+    <rect x="6" y="6" width="84" height="26" rx="4" fill="#EFE8D8"></rect>
+    <rect x="6" y="44" width="68" height="42" rx="4" fill="#EFE8D8"></rect>
+    <rect x="6" y="100" width="76" height="36" rx="4" fill="#EFE8D8"></rect>
+    <rect x="6" y="152" width="60" height="42" rx="4" fill="#EFE8D8"></rect>
+    <rect x="6" y="204" width="84" height="14" rx="4" fill="#EFE8D8"></rect>
+    <rect x="218" y="6" width="116" height="32" rx="4" fill="#EFE8D8"></rect>
+    <rect x="222" y="54" width="112" height="44" rx="4" fill="#EFE8D8"></rect>
+    <rect x="214" y="112" width="120" height="40" rx="4" fill="#EFE8D8"></rect>
+    <rect x="220" y="166" width="114" height="30" rx="4" fill="#EFE8D8"></rect>
+    <rect x="220" y="204" width="114" height="14" rx="4" fill="#EFE8D8"></rect>
+    <rect x="96" y="0" width="8" height="220" fill="#E4DCCB"></rect>
+    <rect x="208" y="0" width="7" height="220" fill="#E4DCCB"></rect>
+    <rect x="0" y="38" width="340" height="4" fill="#E4DCCB"></rect>
+    <rect x="0" y="96" width="340" height="4" fill="#E4DCCB"></rect>
+    <rect x="0" y="152" width="340" height="4" fill="#E4DCCB"></rect>
+    <rect x="0" y="200" width="340" height="4" fill="#E4DCCB"></rect>
+    <rect x="112" y="0" width="24" height="220" fill="#CDE9BC" opacity="0.85"></rect>
+    <rect x="186" y="0" width="22" height="220" fill="#CDE9BC" opacity="0.85"></rect>
+    <path d="M 136 0 C 133 55 148 105 140 156 C 135 176 142 192 139 220 L 188 220 C 186 192 191 176 187 156 C 180 105 196 55 193 0 Z" fill="#BBD9F5"></path>
+    <path d="M 149 0 C 146 55 160 105 153 156 C 149 176 155 192 152 220" fill="none" stroke="#A7C9EC" strokeWidth="2.5" opacity="0.6"></path>
+    <text x="163" y="32" fontSize="11" fill="#3E7BB8" fontFamily="Pretendard, system-ui" fontWeight="700" textAnchor="middle">탄천</text>
+    <path d="M 96 0 C 93 55 108 105 100 156 C 95 176 102 192 99 220 L 229 220 C 226 192 233 176 229 156 C 222 105 237 55 234 0 Z" fill="#2F6FE8" fillOpacity="0.09"></path>
+    <path d="M 96 0 C 93 55 108 105 100 156 C 95 176 102 192 99 220" fill="none" stroke="#2F6FE8" strokeWidth="1.6" strokeOpacity="0.45" strokeDasharray="7 4"></path>
+    <path d="M 234 0 C 237 55 222 105 229 156 C 233 176 226 192 229 220" fill="none" stroke="#2F6FE8" strokeWidth="1.6" strokeOpacity="0.45" strokeDasharray="7 4"></path>
+    <text x="163" y="14" fontSize="8" fill="#2F6FE8" fontFamily="Pretendard, system-ui" fontWeight="700" textAnchor="middle" opacity="0.8">Ranking Zone</text>
+    <sc-for list="{{ segments }}" as="seg" hint-placeholder-count="0">
+      <polyline points="{{ seg.pointsStr }}" fill="none" stroke="{{ seg.stroke }}" strokeWidth="{{ seg.width }}" strokeLinecap="round" strokeLinejoin="round" opacity="{{ seg.opacity }}"></polyline>
+    </sc-for>
+    <sc-if value="{{ showStartDot }}" hint-placeholder-val="{{ false }}">
+      <circle cx="{{ startX }}" cy="{{ startY }}" r="4.5" fill="white" stroke="#A7A9AE" strokeWidth="2"></circle>
+    </sc-if>
+    <sc-if value="{{ showCurrentMarker }}" hint-placeholder-val="{{ false }}">
+      <sc-if value="{{ showHalo }}" hint-placeholder-val="{{ false }}">
+        <circle cx="{{ curX }}" cy="{{ curY }}" r="13" fill="#2F6FE8" fillOpacity="0.15"></circle>
+      </sc-if>
+      <circle cx="{{ curX }}" cy="{{ curY }}" r="6" fill="{{ curFill }}" stroke="white" strokeWidth="2.5"></circle>
+      <sc-if value="{{ showGpsLostLabel }}" hint-placeholder-val="{{ false }}">
+        <text x="{{ curX }}" y="{{ curYLabel }}" fontSize="8" fill="#8B93A5" fontFamily="Pretendard, system-ui" fontWeight="600" textAnchor="middle">위치 확인 중…</text>
+      </sc-if>
+    </sc-if>
+    <sc-if value="{{ showFinalMarker }}" hint-placeholder-val="{{ false }}">
+      <circle cx="{{ curX }}" cy="{{ curY }}" r="5.5" fill="{{ finalFill }}" stroke="white" strokeWidth="2"></circle>
+    </sc-if>
+    <sc-if value="{{ showPreviewPin }}" hint-placeholder-val="{{ true }}">
+      <circle cx="155" cy="112" r="13" fill="#2F6FE8" fillOpacity="0.15"></circle>
+      <circle cx="155" cy="112" r="6" fill="#2F6FE8" stroke="white" strokeWidth="2.5"></circle>
+    </sc-if>
+  </svg>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 340, &quot;height&quot;: 220}, &quot;route&quot;: {&quot;editor&quot;: null, &quot;default&quot;: [], &quot;tsType&quot;: &quot;Array&lt;{x:number,y:number,z:boolean}&gt;&quot;}, &quot;progress&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 1, &quot;min&quot;: 0, &quot;max&quot;: 1, &quot;step&quot;: 0.01, &quot;tsType&quot;: &quot;number&quot;}, &quot;showRoute&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot;}, &quot;showUserPin&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;}, &quot;gpsLost&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot;}, &quot;viewBox&quot;: {&quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;0 0 340 220&quot;, &quot;tsType&quot;: &quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const route = this.props.route || [];
+    const progress = this.props.progress ?? 1;
+    const showRoute = !!this.props.showRoute;
+    const showUserPin = this.props.showUserPin ?? true;
+    const gpsLost = !!this.props.gpsLost;
+    const viewBox = this.props.viewBox || '0 0 340 220';
+
+    const visibleCount = showRoute ? Math.max(1, Math.round(progress * route.length)) : 0;
+    const visible = route.slice(0, visibleCount);
+    const currentPos = visible.length > 0 ? visible[visible.length - 1] : null;
+
+    const segs = [];
+    if (visible.length > 1) {
+      let seg = { points: [visible[0]], inZone: visible[0].z };
+      for (let i = 1; i < visible.length; i++) {
+        const pt = visible[i];
+        if (pt.z === seg.inZone) seg.points.push(pt);
+        else { seg.points.push(pt); segs.push(seg); seg = { points: [pt], inZone: pt.z }; }
+      }
+      if (seg.points.length > 1) segs.push(seg);
+    }
+    const segments = segs.map(s => ({
+      pointsStr: s.points.map(p => `${p.x},${p.y}`).join(' '),
+      stroke: s.inZone ? '#2F6FE8' : '#A7A9AE',
+      width: s.inZone ? 4 : 2.8,
+      opacity: s.inZone ? 1 : 0.7,
+    }));
+
+    const showCurrentMarker = showRoute && !!currentPos && progress < 1;
+    return {
+      viewBox, segments,
+      showStartDot: showRoute && visible.length > 0,
+      startX: route[0] ? route[0].x : 0,
+      startY: route[0] ? route[0].y : 0,
+      showCurrentMarker,
+      showFinalMarker: showRoute && !!currentPos && progress >= 1,
+      curX: currentPos ? currentPos.x : 0,
+      curY: currentPos ? currentPos.y : 0,
+      curYLabel: (currentPos ? currentPos.y : 0) - 15,
+      curFill: gpsLost ? '#B4BCC8' : '#2F6FE8',
+      finalFill: currentPos && currentPos.z ? '#2F6FE8' : '#A7A9AE',
+      showHalo: showCurrentMarker && !gpsLost,
+      showGpsLostLabel: showCurrentMarker && gpsLost,
+      showPreviewPin: !showRoute && showUserPin,
+    };
+  }
+}
+</script>
+</body>
+</html>

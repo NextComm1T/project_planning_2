@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"></link>
+<style>
+  body { margin: 0; background: #C8C4BC; font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  @keyframes pulseDot { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+  a { color: #4878F6; }
+  a:hover { color: #2D57C8; }
+</style>
+</helmet>
+<div style="min-height:100vh;width:100%;background:#C8C4BC;display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;">
+<div style="position:relative;display:flex;flex-direction:column;background:#F6F5F0;overflow:hidden;width:390px;height:844px;border-radius:44px;box-shadow:0 25px 60px rgba(0,0,0,0.35);flex-shrink:0;">
+
+<sc-if value="{{ showStatusBar }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 24px 4px;flex-shrink:0;color:#1A1A2E;">
+  <span style="font-size:12px;font-weight:600;">9:41</span>
+  <div style="display:flex;align-items:center;gap:6px;">
+    <svg width="16" height="11" viewBox="0 0 16 11" fill="#1A1A2E"><rect x="0" y="5" width="2.5" height="6" rx="0.5" opacity="0.35"></rect><rect x="3.5" y="3" width="2.5" height="8" rx="0.5" opacity="0.55"></rect><rect x="7" y="1" width="2.5" height="10" rx="0.5" opacity="0.75"></rect><rect x="10.5" y="0" width="2.5" height="11" rx="0.5"></rect></svg>
+    <svg width="15" height="11" viewBox="0 0 22 16" fill="none" stroke="#1A1A2E" strokeWidth="2" strokeLinecap="round"><path d="M1 5a14 14 0 0120 0" opacity="0.4"></path><path d="M4.5 8.5a9 9 0 0113 0" opacity="0.6"></path><path d="M8 12a5 5 0 016 0" opacity="0.85"></path><circle cx="11" cy="15" r="1.5" fill="#1A1A2E" stroke="none"></circle></svg>
+    <svg width="24" height="11" viewBox="0 0 24 11" fill="none"><rect x="0.5" y="0.5" width="20" height="10" rx="3" stroke="#1A1A2E" strokeOpacity="0.4"></rect><rect x="2" y="2" width="16" height="7" rx="2" fill="#1A1A2E"></rect><path d="M22 3.5v4a2 2 0 000-4z" fill="#1A1A2E" fillOpacity="0.45"></path></svg>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isLogin }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-direction:column;flex:1;overflow-y:auto;padding:0 28px;">
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding-top:16px;padding-bottom:8px;">
+    <div style="width:56px;height:56px;border-radius:16px;background:#EBF1FF;display:flex;align-items:center;justify-content:center;margin-bottom:28px;"><span style="font-size:30px;">🏃</span></div>
+    <h1 style="font-family:'Outfit',sans-serif;font-size:34px;font-weight:700;color:#1A1A2E;line-height:1.3;margin:0 0 12px;">탄천에서<br />함께 달려요</h1>
+    <p style="color:#9CA3AF;font-size:14px;line-height:1.6;margin:0;">성남 탄천에서 달린 거리로<br />이웃 러너들과 가볍게 경쟁해보세요.</p>
+  </div>
+  <div style="padding-bottom:40px;display:flex;flex-direction:column;gap:12px;">
+    <p style="font-size:12px;color:#9CA3AF;text-align:center;margin:0 0 4px;">간편 로그인으로 시작하기</p>
+    <button onClick="{{ onLogin }}" style="width:100%;height:52px;border-radius:16px;background:#FEE500;color:#3C1E1E;font-weight:600;display:flex;align-items:center;gap:12px;padding:0 20px;border:none;cursor:pointer;">
+      <span style="font-size:20px;">💬</span><span style="flex:1;text-align:center;font-size:15px;">카카오로 시작하기</span>
+    </button>
+    <button onClick="{{ onLogin }}" style="width:100%;height:52px;border-radius:16px;background:#FFFFFF;border:1px solid #E5E4DE;color:#1A1A2E;font-weight:600;display:flex;align-items:center;gap:12px;padding:0 20px;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,0.05);">
+      <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"></path><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"></path><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"></path><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"></path></svg>
+      <span style="flex:1;text-align:center;font-size:15px;">Google로 시작하기</span>
+    </button>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isNickname }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;flex:1;overflow-y:auto;padding:0 24px;">
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding-top:8px;">
+    <div style="width:48px;height:48px;border-radius:12px;background:#EBF1FF;display:flex;align-items:center;justify-content:center;margin-bottom:28px;"><span style="font-size:22px;">✏️</span></div>
+    <h2 style="font-family:'Outfit',sans-serif;font-size:28px;font-weight:700;color:#1A1A2E;margin:0 0 8px;">닉네임 설정</h2>
+    <p style="font-size:14px;color:#9CA3AF;margin:0 0 32px;line-height:1.6;">탄천 랭킹에 표시될 이름을 정해주세요.<br />다른 사용자와 중복될 수 없습니다.</p>
+    <div style="background:#FFFFFF;border-radius:16px;padding:20px;box-shadow:0 1px 2px rgba(0,0,0,0.05);border:1px solid #E5E4DE;">
+      <input type="text" value="{{ nicknameInput }}" onChange="{{ onNicknameChange }}" placeholder="닉네임 입력" maxLength="10" autoFocus="{{ true }}" style="width:100%;background:transparent;font-size:20px;font-family:'Outfit',sans-serif;font-weight:600;color:#1A1A2E;border:none;outline:none;"></input>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:12px;border-top:1px solid #E5E4DE;">
+        <span style="font-size:12px;color:#9CA3AF;">2~10자, 공백 불가</span>
+        <span style="font-size:12px;font-weight:500;color:#1A1A2E;">{{ nicknameLen }}/10</span>
+      </div>
+    </div>
+    <sc-if value="{{ showNicknameSpaceError }}" hint-placeholder-val="{{ false }}">
+      <p style="margin-top:12px;font-size:14px;color:#EF4444;">공백은 포함할 수 없습니다.</p>
+    </sc-if>
+  </div>
+  <div style="padding-bottom:40px;">
+    <button onClick="{{ onNicknameConfirm }}" disabled="{{ !isNicknameValid }}" style="width:100%;height:52px;border-radius:16px;font-weight:600;font-size:15px;border:none;background:{{ nicknameBtnBg }};color:{{ nicknameBtnFg }};cursor:{{ nicknameBtnCursor }};">시작하기</button>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isCountdown }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;flex:1;align-items:center;justify-content:center;gap:16px;">
+  <p style="font-size:14px;color:#9CA3AF;margin:0;">준비하세요!</p>
+  <div style="font-family:'Outfit',sans-serif;font-weight:700;color:#4878F6;line-height:1;font-size:{{ countdownFontSize }};">{{ countdownDisplay }}</div>
+  <p style="font-size:14px;color:#9CA3AF;margin:0;">{{ countdownSubtext }}</p>
+</div>
+</sc-if>
+
+<sc-if value="{{ isRunning }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;height:100%;">
+  <div style="padding:4px 20px 12px;display:flex;align-items:flex-start;justify-content:space-between;flex-shrink:0;">
+    <div>
+      <p style="font-size:12px;color:#9CA3AF;font-weight:500;margin:0 0 4px;">러닝 시간</p>
+      <p style="font-family:'Outfit',sans-serif;font-size:64px;font-weight:700;color:#1A1A2E;line-height:1;letter-spacing:-1px;margin:0;">{{ runTimeDisplay }}</p>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;margin-top:8px;">
+      <sc-if value="{{ gpsLostEffective }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:500;background:#FFFBEB;color:#B45309;"><span style="width:6px;height:6px;border-radius:999px;background:#FBBF24;"></span>GPS 신호 약함</div>
+      </sc-if>
+      <sc-if value="{{ !gpsLostEffective }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:500;background:#F0FDF4;color:#15803D;"><span style="width:6px;height:6px;border-radius:999px;background:#22C55E;animation:pulseDot 1.6s infinite;"></span>GPS 정상</div>
+        <sc-if value="{{ inZone }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:500;background:#EBF1FF;color:#2D57C8;"><span style="width:6px;height:6px;border-radius:999px;background:#4878F6;"></span>구역 내</div>
+        </sc-if>
+        <sc-if value="{{ !inZone }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:500;background:#F0EFE9;color:#9CA3AF;"><span style="width:6px;height:6px;border-radius:999px;background:#9CA3AF;"></span>구역 밖</div>
+        </sc-if>
+      </sc-if>
+    </div>
+  </div>
+
+  <sc-if value="{{ gpsLostEffective }}" hint-placeholder-val="{{ false }}">
+    <div style="margin:0 16px 8px;background:#FFFBEB;border:1px solid #FDE68A;border-radius:16px;padding:12px 16px;flex-shrink:0;">
+      <div style="display:flex;align-items:flex-start;gap:10px;">
+        <span style="color:#F59E0B;margin-top:2px;flex-shrink:0;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+        </span>
+        <div style="flex:1;">
+          <p style="font-size:14px;font-weight:600;color:#92400E;margin:0;">GPS 신호가 약합니다</p>
+          <p style="font-size:12px;color:#B45309;margin:2px 0 0;line-height:1.5;">신호가 복구될 때까지 거리를 측정하지 않습니다.</p>
+        </div>
+      </div>
+      <button onClick="{{ onGpsRestore }}" style="margin-top:10px;width:100%;height:32px;border-radius:12px;background:#FEF3C7;border:1px solid #FDE68A;color:#92400E;font-size:12px;font-weight:600;cursor:pointer;">GPS 복구 시뮬레이션 →</button>
+    </div>
+  </sc-if>
+
+  <div style="margin:0 16px;flex:1;min-height:0;position:relative;overflow:hidden;border-radius:16px;border:1px solid #E5E4DE;box-shadow:0 1px 2px rgba(0,0,0,0.05);">
+    <dc-import name="TancheonMap" route="{{ routeMain }}" progress="{{ routeProgress }}" show-route="{{ true }}" show-user-pin="{{ false }}" gps-lost="{{ gpsLostEffective }}" view-box="{{ zoomViewBox }}" hint-size="100%,100%" style="position:absolute;inset:0;"></dc-import>
+    <div style="position:absolute;right:12px;top:12px;display:flex;flex-direction:column;border-radius:10px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,0.08);">
+      <button onClick="{{ onZoomIn }}" disabled="{{ !canZoomIn }}" style="width:32px;height:32px;background:rgba(255,255,255,0.9);border:1px solid rgba(229,228,222,0.7);border-bottom:none;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;color:#1A1A2E;cursor:pointer;">+</button>
+      <button onClick="{{ onZoomOut }}" disabled="{{ !canZoomOut }}" style="width:32px;height:32px;background:rgba(255,255,255,0.9);border:1px solid rgba(229,228,222,0.7);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;color:#1A1A2E;cursor:pointer;">−</button>
+    </div>
+    <button onClick="{{ onZoomReset }}" style="position:absolute;right:12px;bottom:12px;width:32px;height:32px;border-radius:10px;background:rgba(255,255,255,0.9);border:1px solid rgba(229,228,222,0.7);display:flex;align-items:center;justify-content:center;color:#1A1A2E;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,0.08);">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path></svg>
+    </button>
+    <div style="position:absolute;left:12px;bottom:12px;background:rgba(255,255,255,0.85);border-radius:12px;padding:8px 10px;box-shadow:0 1px 2px rgba(0,0,0,0.08);border:1px solid rgba(229,228,222,0.5);">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+        <div style="width:12px;height:12px;border-radius:50%;border:2px solid #4878F6;background:rgba(72,120,246,0.2);flex-shrink:0;"></div>
+        <span style="font-size:10px;color:rgba(26,26,46,0.8);line-height:1;">내 위치</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <div style="width:12px;height:6px;border-radius:3px;background:rgba(72,120,246,0.25);border:1px dashed rgba(72,120,246,0.6);"></div>
+        <span style="font-size:10px;color:rgba(26,26,46,0.8);line-height:1;">Ranking Zone</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin:12px 16px 0;background:#FFFFFF;border-radius:16px;border:1px solid #E5E4DE;box-shadow:0 1px 2px rgba(0,0,0,0.05);overflow:hidden;flex-shrink:0;">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;">
+      <div style="padding:16px 12px;border-right:1px solid #E5E4DE;">
+        <p style="font-size:10px;color:#9CA3AF;margin:0 0 6px;">총 거리</p>
+        <p style="font-family:'Outfit',sans-serif;font-size:26px;font-weight:700;color:#1A1A2E;line-height:1;margin:0;">{{ totalDistDisplay }}</p>
+        <p style="font-size:11px;color:#9CA3AF;margin:4px 0 0;">km</p>
+      </div>
+      <div style="padding:16px 12px;border-right:1px solid #E5E4DE;">
+        <p style="font-size:10px;font-weight:500;color:#16A34A;margin:0 0 6px;">탄천 인정</p>
+        <p style="font-family:'Outfit',sans-serif;font-size:26px;font-weight:700;line-height:1;margin:0;color:{{ zoneStatColor }};">{{ tancheonDistDisplay }}</p>
+        <p style="font-size:11px;margin:4px 0 0;color:{{ zoneStatColor }};">km</p>
+      </div>
+      <div style="padding:16px 12px;">
+        <p style="font-size:10px;color:#9CA3AF;margin:0 0 6px;">현재 페이스</p>
+        <p style="font-family:'Outfit',sans-serif;font-size:26px;font-weight:700;color:#1A1A2E;line-height:1;margin:0;">{{ runPaceDisplay }}</p>
+        <p style="font-size:11px;color:#9CA3AF;margin:4px 0 0;">/km</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding:8px 16px 24px;flex-shrink:0;">
+    <sc-if value="{{ !gpsLostEffective }}" hint-placeholder-val="{{ true }}">
+      <button onClick="{{ onGpsBreak }}" style="width:100%;height:28px;border-radius:12px;background:#F0EFE9;border:1px solid #E5E4DE;color:#9CA3AF;font-size:12px;font-weight:500;cursor:pointer;margin-bottom:8px;">GPS 신호 끊기 시뮬레이션</button>
+    </sc-if>
+    <button onClick="{{ onStop }}" style="width:100%;height:160px;border-radius:16px;background:#EF4444;color:#FFFFFF;border:none;font-family:'Outfit',sans-serif;font-weight:700;font-size:48px;letter-spacing:-1px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.15);">러닝 종료</button>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isResult }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;flex:1;overflow-y:auto;">
+  <div style="padding:8px 20px 16px;">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+      <span style="font-size:12px;font-weight:500;color:#16A34A;background:#F0FDF4;padding:4px 10px;border-radius:999px;">✓ 완료</span>
+      <sc-if value="{{ resultIsPR }}" hint-placeholder-val="{{ false }}">
+        <span style="font-size:12px;font-weight:500;color:#4878F6;background:#EBF1FF;padding:4px 10px;border-radius:999px;">개인 최고 기록 🎉</span>
+      </sc-if>
+    </div>
+    <h1 style="font-family:'Outfit',sans-serif;font-size:26px;font-weight:700;color:#1A1A2E;margin:0;">{{ resultDate }}</h1>
+    <p style="font-size:14px;color:#9CA3AF;margin:2px 0 0;">러닝 결과</p>
+  </div>
+
+  <div style="margin:0 20px;background:#FFFFFF;border-radius:16px;border:1px solid #E5E4DE;box-shadow:0 1px 2px rgba(0,0,0,0.05);overflow:hidden;flex-shrink:0;">
+    <div style="height:178px;">
+      <dc-import name="TancheonMap" route="{{ routeMain }}" progress="{{ 1 }}" show-route="{{ true }}" show-user-pin="{{ false }}" hint-size="100%,178px"></dc-import>
+    </div>
+    <div style="padding:10px 16px 12px;">
+      <div style="display:flex;align-items:center;gap:20px;">
+        <div style="display:flex;align-items:center;gap:6px;"><div style="width:20px;height:3px;border-radius:2px;background:#4878F6;"></div><span style="font-size:11px;color:#9CA3AF;">탄천 인정 구간</span></div>
+        <div style="display:flex;align-items:center;gap:6px;"><div style="width:20px;height:3px;border-radius:2px;background:#9CA3AF;"></div><span style="font-size:11px;color:#9CA3AF;">일반 러닝 구간</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding:12px 20px 32px;display:flex;flex-direction:column;gap:12px;">
+    <sc-if value="{{ ranked }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#EBF1FF;border-radius:16px;padding:16px;border:1px solid #DBEAFE;">
+        <p style="font-size:12px;font-weight:500;color:#2D57C8;margin:0 0 8px;">탄천 랭킹 순위</p>
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-family:'Outfit',sans-serif;font-size:52px;font-weight:700;color:#4878F6;line-height:1;">{{ resultRank }}위</span>
+          <div style="text-align:right;">
+            <p style="font-family:'Outfit',sans-serif;font-size:20px;font-weight:600;color:#1A1A2E;margin:0;">{{ resultTancheonDist }} km</p>
+            <p style="font-size:12px;color:#9CA3AF;margin:2px 0 0;">탄천 인정 거리 반영</p>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+    <sc-if value="{{ !ranked }}" hint-placeholder-val="{{ true }}">
+      <div style="background:#F0EFE9;border-radius:16px;padding:16px;border:1px solid #E5E4DE;">
+        <p style="font-size:12px;font-weight:500;color:#9CA3AF;margin:0 0 4px;">랭킹 미반영</p>
+        <p style="font-size:14px;color:#9CA3AF;margin:0;">탄천 구역 밖에서 달린 기록은 랭킹에 반영되지 않습니다.</p>
+      </div>
+    </sc-if>
+
+    <div style="background:#FFFFFF;border-radius:16px;border:1px solid #E5E4DE;box-shadow:0 1px 2px rgba(0,0,0,0.05);overflow:hidden;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;">
+        <div style="padding:16px;border-bottom:1px solid #E5E4DE;">
+          <p style="font-size:12px;color:#9CA3AF;margin:0 0 6px;">총 거리</p>
+          <p style="font-family:'Outfit',sans-serif;font-size:22px;font-weight:700;color:#1A1A2E;margin:0;">{{ resultTotalDist }}<span style="font-size:14px;font-weight:400;color:#9CA3AF;margin-left:4px;">km</span></p>
+        </div>
+        <div style="padding:16px;border-bottom:1px solid #E5E4DE;border-left:1px solid #E5E4DE;">
+          <p style="font-size:12px;color:#9CA3AF;margin:0 0 6px;">탄천 인정</p>
+          <p style="font-family:'Outfit',sans-serif;font-size:22px;font-weight:700;color:#16A34A;margin:0;">{{ resultTancheonDist }}<span style="font-size:14px;font-weight:400;color:#9CA3AF;margin-left:4px;">km</span></p>
+        </div>
+        <div style="padding:16px;">
+          <p style="font-size:12px;color:#9CA3AF;margin:0 0 6px;">러닝 시간</p>
+          <p style="font-family:'Outfit',sans-serif;font-size:22px;font-weight:700;color:#1A1A2E;margin:0;">{{ resultRunTimeStr }}</p>
+        </div>
+        <div style="padding:16px;border-left:1px solid #E5E4DE;">
+          <p style="font-size:12px;color:#9CA3AF;margin:0 0 6px;">페이스</p>
+          <p style="font-family:'Outfit',sans-serif;font-size:22px;font-weight:700;color:#1A1A2E;margin:0;">{{ resultPaceStr }}<span style="font-size:14px;font-weight:400;color:#9CA3AF;margin-left:4px;">/km</span></p>
+        </div>
+      </div>
+    </div>
+
+    <sc-if value="{{ ranked }}" hint-placeholder-val="{{ false }}">
+      <button onClick="{{ onViewRanking }}" style="width:100%;height:52px;border-radius:16px;background:#4878F6;color:#FFFFFF;border:none;font-weight:600;font-size:15px;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,0.05);">탄천 랭킹 보기</button>
+    </sc-if>
+    <button onClick="{{ onViewRecords }}" style="width:100%;height:52px;border-radius:16px;border:1px solid #E5E4DE;background:#FFFFFF;color:#1A1A2E;font-weight:600;font-size:15px;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,0.05);">내 기록 보기</button>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isSettings }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;flex:1;overflow-y:auto;">
+  <div style="padding:4px 16px 12px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #E5E4DE;flex-shrink:0;">
+    <button onClick="{{ onCloseSettings }}" style="width:36px;height:36px;border-radius:12px;background:#F0EFE9;border:none;display:flex;align-items:center;justify-content:center;color:#1A1A2E;cursor:pointer;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"></path></svg>
+    </button>
+    <h1 style="font-family:'Outfit',sans-serif;font-size:16px;font-weight:600;color:#1A1A2E;margin:0;">설정</h1>
+  </div>
+  <div style="padding:20px;">
+    <p style="font-size:12px;font-weight:500;color:#9CA3AF;margin:0 0 8px 4px;">내 정보</p>
+    <div style="background:#FFFFFF;border-radius:16px;border:1px solid #E5E4DE;box-shadow:0 1px 2px rgba(0,0,0,0.05);overflow:hidden;">
+      <button onClick="{{ onEditNickname }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:16px;background:none;border:none;cursor:pointer;text-align:left;">
+        <div>
+          <p style="font-size:12px;color:#9CA3AF;margin:0 0 4px;">닉네임</p>
+          <p style="font-size:15px;font-weight:500;color:#1A1A2E;margin:0;">{{ nickname }}</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:4px;color:#4878F6;">
+          <span style="font-size:14px;font-weight:500;">수정</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"></path></svg>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isNicknameEdit }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;flex:1;overflow-y:auto;">
+  <div style="padding:4px 16px 12px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #E5E4DE;flex-shrink:0;">
+    <button onClick="{{ onBackToSettings }}" style="width:36px;height:36px;border-radius:12px;background:#F0EFE9;border:none;display:flex;align-items:center;justify-content:center;color:#1A1A2E;cursor:pointer;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"></path></svg>
+    </button>
+    <div>
+      <p style="font-size:11px;color:#9CA3AF;margin:0 0 2px;">설정</p>
+      <h1 style="font-family:'Outfit',sans-serif;font-size:16px;font-weight:600;color:#1A1A2E;margin:0;">닉네임 수정</h1>
+    </div>
+  </div>
+  <div style="flex:1;padding:20px;">
+    <div style="background:#FFFFFF;border-radius:16px;border:1px solid #E5E4DE;box-shadow:0 1px 2px rgba(0,0,0,0.05);padding:16px;">
+      <p style="font-size:12px;color:#9CA3AF;margin:0 0 8px;">닉네임</p>
+      <input type="text" value="{{ nicknameEditValue }}" onChange="{{ onNicknameEditChange }}" maxLength="10" autoFocus="{{ true }}" placeholder="닉네임 입력" style="width:100%;background:transparent;font-size:18px;font-family:'Outfit',sans-serif;font-weight:600;color:#1A1A2E;border:none;outline:none;"></input>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:12px;border-top:1px solid #E5E4DE;">
+        <p style="font-size:12px;color:#9CA3AF;margin:0;line-height:1.5;">다른 러너들에게 표시되는 이름이에요.</p>
+        <span style="font-size:12px;font-weight:500;color:#1A1A2E;flex-shrink:0;margin-left:8px;">{{ editLen }}/10</span>
+      </div>
+    </div>
+    <sc-if value="{{ editErrorMsg }}" hint-placeholder-val="{{ false }}">
+      <p style="margin:10px 0 0 4px;font-size:14px;color:#EF4444;">{{ editErrorMsg }}</p>
+    </sc-if>
+    <sc-if value="{{ showUnchangedMsg }}" hint-placeholder-val="{{ false }}">
+      <p style="margin:10px 0 0 4px;font-size:14px;color:#9CA3AF;">현재 닉네임과 동일합니다.</p>
+    </sc-if>
+  </div>
+  <div style="padding:0 20px 32px;flex-shrink:0;">
+    <button onClick="{{ onSaveNickname }}" disabled="{{ !editIsValid }}" style="width:100%;height:52px;border-radius:16px;font-weight:600;font-size:15px;border:none;background:{{ editBtnBg }};color:{{ editBtnFg }};cursor:{{ editBtnCursor }};">저장</button>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isRecordDetail }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;height:100%;">
+  <div style="padding:4px 16px 12px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #E5E4DE;flex-shrink:0;">
+    <button onClick="{{ onBackFromRecord }}" style="width:40px;height:40px;border-radius:12px;background:#F0EFE9;border:none;display:flex;align-items:center;justify-content:center;color:#1A1A2E;cursor:pointer;flex-shrink:0;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"></path></svg>
+    </button>
+    <div>
+      <p style="font-size:19px;font-weight:700;color:#1A1A2E;font-family:'Outfit',sans-serif;margin:0;line-height:1.2;">{{ recDetail.date }}</p>
+      <p style="font-size:12px;color:#9CA3AF;margin:2px 0 0;">러닝 기록 상세</p>
+    </div>
+  </div>
+
+  <div style="margin:12px 16px 0;flex:1;min-height:0;background:#FFFFFF;border-radius:16px;border:1px solid #E5E4DE;box-shadow:0 1px 2px rgba(0,0,0,0.05);overflow:hidden;display:flex;flex-direction:column;">
+    <div style="flex:1;min-height:0;">
+      <dc-import name="TancheonMap" route="{{ recDetail.route }}" progress="{{ 1 }}" show-route="{{ true }}" show-user-pin="{{ false }}" hint-size="100%,100%"></dc-import>
+    </div>
+    <div style="padding:12px 16px;border-top:1px solid #E5E4DE;flex-shrink:0;">
+      <sc-if value="{{ recDetail.hasZone }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;align-items:center;gap:24px;">
+          <div style="display:flex;align-items:center;gap:8px;"><div style="width:24px;height:4px;border-radius:2px;background:#4878F6;"></div><span style="font-size:12px;font-weight:500;color:rgba(26,26,46,0.7);">탄천 인정 구간</span></div>
+          <div style="display:flex;align-items:center;gap:8px;"><div style="width:24px;height:4px;border-radius:2px;background:#9CA3AF;"></div><span style="font-size:12px;font-weight:500;color:rgba(26,26,46,0.7);">일반 러닝 구간</span></div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ !recDetail.hasZone }}" hint-placeholder-val="{{ false }}">
+        <span style="font-size:12px;color:#9CA3AF;">탄천 구역 외 러닝 — 랭킹 미반영</span>
+      </sc-if>
+    </div>
+  </div>
+
+  <div style="margin:12px 16px 24px;background:#FFFFFF;border-radius:16px;border:1px solid #E5E4DE;box-shadow:0 1px 2px rgba(0,0,0,0.05);overflow:hidden;flex-shrink:0;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;">
+      <div style="padding:24px 20px;border-bottom:1px solid #E5E4DE;">
+        <p style="font-size:11px;font-weight:500;color:#9CA3AF;margin:0 0 8px;">총 거리</p>
+        <p style="font-family:'Outfit',sans-serif;font-size:32px;font-weight:700;color:#1A1A2E;margin:0;">{{ recDetail.totalDist }}<span style="font-size:14px;font-weight:400;color:#9CA3AF;margin-left:6px;">km</span></p>
+      </div>
+      <div style="padding:24px 20px;border-bottom:1px solid #E5E4DE;border-left:1px solid #E5E4DE;">
+        <p style="font-size:11px;font-weight:500;color:{{ recDetail.zoneColor }};margin:0 0 8px;">탄천 인정</p>
+        <p style="font-family:'Outfit',sans-serif;font-size:32px;font-weight:700;color:{{ recDetail.zoneColor }};margin:0;">{{ recDetail.tancheonDist }}<span style="font-size:14px;font-weight:400;color:#9CA3AF;margin-left:6px;">km</span></p>
+      </div>
+      <div style="padding:24px 20px;">
+        <p style="font-size:11px;font-weight:500;color:#9CA3AF;margin:0 0 8px;">러닝 시간</p>
+        <p style="font-family:'Outfit',sans-serif;font-size:32px;font-weight:700;color:#1A1A2E;margin:0;">{{ recDetail.timeStr }}</p>
+      </div>
+      <div style="padding:24px 20px;border-left:1px solid #E5E4DE;">
+        <p style="font-size:11px;font-weight:500;color:#9CA3AF;margin:0 0 8px;">평균 페이스</p>
+        <p style="font-family:'Outfit',sans-serif;font-size:32px;font-weight:700;color:#1A1A2E;margin:0;">{{ recDetail.paceStr }}<span style="font-size:14px;font-weight:400;color:#9CA3AF;margin-left:6px;">/km</span></p>
+      </div>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;flex:1;min-height:0;">
+<div style="flex:1;overflow-y:auto;min-height:0;">
+
+<sc-if value="{{ isTabRun }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-direction:column;">
+  <div style="padding:4px 20px 8px;display:flex;align-items:center;justify-content:space-between;">
+    <span style="font-family:'Outfit',sans-serif;font-weight:700;color:#1A1A2E;font-size:17px;white-space:nowrap;flex-shrink:0;">탄천 RUN</span>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <sc-if value="{{ gpsReady }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:500;background:#F0FDF4;color:#15803D;"><span style="width:6px;height:6px;border-radius:999px;background:#22C55E;animation:pulseDot 1.6s infinite;"></span>GPS 준비완료</div>
+      </sc-if>
+      <sc-if value="{{ !gpsReady }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:500;background:#F0EFE9;color:#9CA3AF;"><span style="width:6px;height:6px;border-radius:999px;background:#9CA3AF;"></span>GPS 확인 중{{ gpsDotsText }}</div>
+      </sc-if>
+      <button onClick="{{ onSettings }}" style="width:32px;height:32px;border-radius:12px;background:#F0EFE9;border:none;display:flex;align-items:center;justify-content:center;color:#9CA3AF;cursor:pointer;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"></path></svg>
+      </button>
+    </div>
+  </div>
+
+  <div style="padding:0 16px 16px;display:flex;flex-direction:column;gap:12px;">
+    <div style="padding:0 4px;">
+      <p style="font-family:'Outfit',sans-serif;font-size:20px;font-weight:600;color:#1A1A2E;margin:0;line-height:1.3;">안녕하세요, {{ nickname }}님 👋</p>
+      <p style="font-size:14px;color:#9CA3AF;margin:2px 0 0;">오늘도 탄천에서 달려볼까요?</p>
+    </div>
+
+    <div style="background:#FFFFFF;border-radius:16px;border:1px solid #E5E4DE;box-shadow:0 1px 2px rgba(0,0,0,0.05);overflow:hidden;">
+      <div style="padding:12px 16px 8px;display:flex;align-items:flex-start;justify-content:space-between;">
+        <div>
+          <p style="font-size:15px;font-weight:600;color:#1A1A2E;margin:0;">탄천 Ranking Zone</p>
+          <p style="font-size:12px;color:#9CA3AF;margin:2px 0 0;">표시된 구역에서 달린 거리만 랭킹에 반영돼요.</p>
+        </div>
+        <span style="flex-shrink:0;margin-left:8px;margin-top:2px;font-size:10px;font-weight:500;color:#4878F6;background:#EBF1FF;padding:2px 8px;border-radius:999px;">구역 확인</span>
+      </div>
+      <div style="position:relative;overflow:hidden;height:316px;">
+        <dc-import name="TancheonMap" route="{{ routeMain }}" progress="{{ 0 }}" show-route="{{ false }}" show-user-pin="{{ true }}" view-box="{{ zoomViewBox }}" hint-size="100%,316px" style="position:absolute;inset:0;"></dc-import>
+        <div style="position:absolute;right:12px;top:12px;display:flex;flex-direction:column;border-radius:10px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,0.08);">
+          <button onClick="{{ onZoomIn }}" disabled="{{ !canZoomIn }}" style="width:32px;height:32px;background:rgba(255,255,255,0.9);border:1px solid rgba(229,228,222,0.7);border-bottom:none;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;color:#1A1A2E;cursor:pointer;">+</button>
+          <button onClick="{{ onZoomOut }}" disabled="{{ !canZoomOut }}" style="width:32px;height:32px;background:rgba(255,255,255,0.9);border:1px solid rgba(229,228,222,0.7);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;color:#1A1A2E;cursor:pointer;">−</button>
+        </div>
+        <button onClick="{{ onZoomReset }}" style="position:absolute;right:12px;bottom:12px;width:32px;height:32px;border-radius:10px;background:rgba(255,255,255,0.9);border:1px solid rgba(229,228,222,0.7);display:flex;align-items:center;justify-content:center;color:#1A1A2E;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,0.08);">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path></svg>
+        </button>
+        <div style="position:absolute;left:12px;bottom:12px;background:rgba(255,255,255,0.85);border-radius:12px;padding:8px 10px;box-shadow:0 1px 2px rgba(0,0,0,0.08);border:1px solid rgba(229,228,222,0.5);">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+            <div style="width:12px;height:12px;border-radius:50%;border:2px solid #4878F6;background:rgba(72,120,246,0.2);flex-shrink:0;"></div>
+            <span style="font-size:10px;color:rgba(26,26,46,0.8);line-height:1;">내 위치</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <div style="width:12px;height:6px;border-radius:3px;background:rgba(72,120,246,0.25);border:1px dashed rgba(72,120,246,0.6);"></div>
+            <span style="font-size:10px;color:rgba(26,26,46,0.8);line-height:1;">Ranking Zone</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#FFFFFF;border-radius:16px;padding:10px 20px;border:1px solid #E5E4DE;box-shadow:0 1px 2px rgba(0,0,0,0.05);">
+      <p style="font-size:10px;color:#9CA3AF;font-weight:500;margin:0 0 4px;">내 탄천 순위</p>
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:baseline;gap:6px;">
+          <span style="font-family:'Outfit',sans-serif;font-size:44px;font-weight:700;color:#4878F6;line-height:1;">5위</span>
+          <span style="font-size:14px;color:#9CA3AF;">/ 14명</span>
+        </div>
+        <div style="text-align:right;">
+          <p style="font-family:'Outfit',sans-serif;font-size:24px;font-weight:600;color:#1A1A2E;line-height:1;margin:0;">61.0</p>
+          <p style="font-size:12px;color:#9CA3AF;margin:2px 0 0;">km 탄천 누적</p>
+        </div>
+      </div>
+    </div>
+
+    <sc-if value="{{ !gpsReady }}" hint-placeholder-val="{{ true }}">
+      <div style="background:#FFFBEB;border:1px solid #FDE68A;border-radius:12px;padding:12px 16px;display:flex;align-items:flex-start;gap:8px;">
+        <span style="color:#F59E0B;margin-top:2px;flex-shrink:0;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg></span>
+        <p style="font-size:14px;color:#92400E;margin:0;line-height:1.5;">GPS 신호를 확인할 수 없어 러닝을 시작할 수 없습니다</p>
+      </div>
+    </sc-if>
+
+    <button onClick="{{ onStart }}" disabled="{{ !gpsReady }}" style="width:100%;height:136px;border-radius:16px;border:none;font-family:'Outfit',sans-serif;font-weight:700;font-size:38px;display:flex;align-items:center;justify-content:center;gap:20px;cursor:{{ startCursor }};background:{{ startBg }};color:{{ startFg }};">
+      <span style="font-size:52px;line-height:1;">🏃</span>{{ startLabel }}
+    </button>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isTabRanking }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;">
+  <div style="padding:4px 20px 12px;display:flex;align-items:flex-start;justify-content:space-between;">
+    <div>
+      <h1 style="font-family:'Outfit',sans-serif;font-size:30px;font-weight:700;color:#1A1A2E;margin:0;">탄천 랭킹</h1>
+      <p style="font-size:14px;color:#9CA3AF;margin:2px 0 0;">누적 거리 기준 · 총 {{ rankingsCount }}명</p>
+    </div>
+    <button onClick="{{ onSettings }}" style="width:32px;height:32px;border-radius:12px;background:#F0EFE9;border:none;display:flex;align-items:center;justify-content:center;color:#9CA3AF;cursor:pointer;margin-top:8px;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"></path></svg>
+    </button>
+  </div>
+
+  <div style="margin:0 20px 16px;background:#EBF1FF;border:1px solid #DBEAFE;border-radius:16px;padding:16px 20px;display:flex;align-items:center;gap:16px;box-shadow:0 1px 2px rgba(0,0,0,0.05);">
+    <div style="display:flex;flex-direction:column;align-items:center;width:40px;flex-shrink:0;">
+      <span style="font-family:'Outfit',sans-serif;font-size:32px;font-weight:700;color:#4878F6;line-height:1;">{{ myEntry.rank }}</span>
+      <span style="font-size:10px;font-weight:600;color:#2D57C8;margin-top:2px;">위</span>
+    </div>
+    <div style="width:1px;height:40px;background:#DBEAFE;flex-shrink:0;"></div>
+    <div style="flex:1;min-width:0;">
+      <p style="font-size:15px;font-weight:700;color:#4878F6;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ nickname }}</p>
+      <p style="font-size:12px;color:#2D57C8;margin:2px 0 0;">내 순위</p>
+    </div>
+    <div style="text-align:right;flex-shrink:0;">
+      <p style="font-family:'Outfit',sans-serif;font-size:22px;font-weight:700;color:#1A1A2E;line-height:1;margin:0;">{{ myEntry.distance }}</p>
+      <p style="font-size:12px;color:#9CA3AF;margin:4px 0 0;">km</p>
+    </div>
+  </div>
+
+  <div style="padding:0 20px 16px;display:flex;flex-direction:column;gap:8px;">
+    <sc-for list="{{ rankings }}" as="r" hint-placeholder-count="6">
+      <div style="display:flex;align-items:center;gap:16px;padding:16px 20px;border-radius:16px;box-shadow:0 1px 2px rgba(0,0,0,0.05);background:{{ r.rowBg }};border:1px solid {{ r.rowBorder }};">
+        <div style="width:32px;flex-shrink:0;text-align:center;">
+          <span style="font-family:'Outfit',sans-serif;font-size:20px;font-weight:700;line-height:1;color:{{ r.color }};">{{ r.rank }}</span>
+        </div>
+        <div style="flex:1;min-width:0;">
+          <p style="font-size:16px;font-weight:700;line-height:1;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:{{ r.nameColor }};">{{ r.name }}</p>
+        </div>
+        <div style="flex-shrink:0;text-align:right;">
+          <span style="font-family:'Outfit',sans-serif;font-size:18px;font-weight:700;line-height:1;color:{{ r.nameColor }};">{{ r.distance }}</span>
+          <span style="font-size:12px;color:#9CA3AF;font-weight:400;margin-left:4px;">km</span>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isTabRecords }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;">
+  <div style="padding:4px 20px 16px;display:flex;align-items:flex-start;justify-content:space-between;">
+    <div>
+      <h1 style="font-family:'Outfit',sans-serif;font-size:30px;font-weight:700;color:#1A1A2E;margin:0;">내 기록</h1>
+      <p style="font-size:14px;color:#9CA3AF;margin:2px 0 0;">개인 최고 기록 및 러닝 히스토리</p>
+    </div>
+    <button onClick="{{ onSettings }}" style="width:32px;height:32px;border-radius:12px;background:#F0EFE9;border:none;display:flex;align-items:center;justify-content:center;color:#9CA3AF;cursor:pointer;margin-top:8px;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"></path></svg>
+    </button>
+  </div>
+
+  <div style="padding:0 20px 24px;display:flex;flex-direction:column;gap:20px;">
+    <div>
+      <p style="font-size:14px;font-weight:600;color:#9CA3AF;margin:0 0 10px;">누적 러닝</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div style="background:#FFFFFF;border-radius:16px;padding:20px 16px;border:1px solid #E5E4DE;box-shadow:0 1px 2px rgba(0,0,0,0.05);">
+          <p style="font-size:12px;color:#9CA3AF;margin:0 0 8px;">총 누적 거리</p>
+          <p style="font-family:'Outfit',sans-serif;font-size:36px;font-weight:700;color:#1A1A2E;line-height:1;margin:0;">{{ totalAccDist }}</p>
+          <p style="font-size:14px;color:#9CA3AF;margin:6px 0 0;">km</p>
+        </div>
+        <div style="background:#FFFFFF;border-radius:16px;padding:20px 16px;border:1px solid #E5E4DE;box-shadow:0 1px 2px rgba(0,0,0,0.05);">
+          <p style="font-size:12px;color:#16A34A;font-weight:500;margin:0 0 8px;">탄천 인정 누적</p>
+          <p style="font-family:'Outfit',sans-serif;font-size:36px;font-weight:700;color:#16A34A;line-height:1;margin:0;">{{ totalAccTancheon }}</p>
+          <p style="font-size:14px;color:#22C55E;margin:6px 0 0;">km</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <p style="font-size:14px;font-weight:600;color:#9CA3AF;margin:0 0 10px;">개인 최고 기록</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+        <div style="background:#FFFFFF;border-radius:16px;padding:20px 12px;border:1px solid #E5E4DE;box-shadow:0 1px 2px rgba(0,0,0,0.05);text-align:center;">
+          <p style="font-size:11px;color:#9CA3AF;margin:0 0 10px;line-height:1.3;">최장 거리</p>
+          <p style="font-family:'Outfit',sans-serif;font-size:20px;font-weight:700;color:#4878F6;line-height:1;margin:0;">{{ bestDistDisplay }}</p>
+          <p style="font-size:11px;color:#9CA3AF;margin:6px 0 0;">km</p>
+        </div>
+        <div style="background:#FFFFFF;border-radius:16px;padding:20px 12px;border:1px solid #E5E4DE;box-shadow:0 1px 2px rgba(0,0,0,0.05);text-align:center;">
+          <p style="font-size:11px;color:#9CA3AF;margin:0 0 10px;line-height:1.3;">최고 페이스</p>
+          <p style="font-family:'Outfit',sans-serif;font-size:20px;font-weight:700;color:#4878F6;line-height:1;margin:0;">{{ bestPaceDisplay }}</p>
+          <p style="font-size:11px;color:#9CA3AF;margin:6px 0 0;">/km</p>
+        </div>
+        <div style="background:#FFFFFF;border-radius:16px;padding:20px 12px;border:1px solid #E5E4DE;box-shadow:0 1px 2px rgba(0,0,0,0.05);text-align:center;">
+          <p style="font-size:11px;color:#9CA3AF;margin:0 0 10px;line-height:1.3;">최대 시간</p>
+          <p style="font-family:'Outfit',sans-serif;font-size:20px;font-weight:700;color:#4878F6;line-height:1;margin:0;">{{ bestTimeDisplay }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <p style="font-size:14px;font-weight:600;color:#9CA3AF;margin:0 0 10px;">러닝 기록</p>
+      <div style="background:#FFFFFF;border-radius:16px;border:1px solid #E5E4DE;box-shadow:0 1px 2px rgba(0,0,0,0.05);overflow:hidden;">
+        <sc-for list="{{ history }}" as="rec" hint-placeholder-count="4">
+          <button onClick="{{ rec.onSelect }}" style="width:100%;text-align:left;padding:20px;background:none;border:none;border-bottom:1px solid {{ rec.divider }};cursor:pointer;display:block;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="font-size:16px;font-weight:600;color:#1A1A2E;">{{ rec.date }}</span>
+                <sc-if value="{{ rec.isOutside }}" hint-placeholder-val="{{ false }}">
+                  <span style="font-size:11px;color:#9CA3AF;background:#F0EFE9;padding:2px 8px;border-radius:999px;">탄천 외</span>
+                </sc-if>
+              </div>
+              <span style="color:#9CA3AF;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"></path></svg></span>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;">
+              <div>
+                <p style="font-size:11px;color:#9CA3AF;margin:0 0 4px;">총 거리</p>
+                <p style="font-family:'Outfit',sans-serif;font-size:16px;font-weight:700;color:#1A1A2E;line-height:1;margin:0;">{{ rec.totalDist }}<span style="font-size:11px;font-weight:400;color:#9CA3AF;margin-left:2px;">km</span></p>
+              </div>
+              <div>
+                <p style="font-size:11px;color:#16A34A;margin:0 0 4px;">탄천 인정</p>
+                <p style="font-family:'Outfit',sans-serif;font-size:16px;font-weight:700;color:#16A34A;line-height:1;margin:0;">{{ rec.tancheonDist }}<span style="font-size:11px;font-weight:400;color:#22C55E;margin-left:2px;">km</span></p>
+              </div>
+              <div>
+                <p style="font-size:11px;color:#9CA3AF;margin:0 0 4px;">시간</p>
+                <p style="font-family:'Outfit',sans-serif;font-size:16px;font-weight:700;color:#1A1A2E;line-height:1;margin:0;">{{ rec.timeStr }}</p>
+              </div>
+              <div>
+                <p style="font-size:11px;color:#9CA3AF;margin:0 0 4px;">페이스</p>
+                <p style="font-family:'Outfit',sans-serif;font-size:16px;font-weight:700;color:#1A1A2E;line-height:1;margin:0;">{{ rec.paceStr }}</p>
+              </div>
+            </div>
+          </button>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+</div>
+
+<nav style="border-top:1px solid #E5E4DE;background:#FFFFFF;display:grid;grid-template-columns:1fr 1fr 1fr;flex-shrink:0;">
+  <button onClick="{{ onTabRun }}" style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 0 6px;gap:4px;background:none;border:none;cursor:pointer;color:{{ navRunColor }};">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="{{ navRunWidth }}" strokeLinecap="round" strokeLinejoin="round"><circle cx="13" cy="4.5" r="1.5" fill="{{ navRunDot }}"></circle><path d="M7 21l3.5-7.5 3 2.5 2.5-5"></path><path d="M13 6l-2.5 4 2.5 2.5-1 5"></path><path d="M15.5 9.5l2.5 1"></path></svg>
+    <span style="font-size:10px;font-weight:500;">달리기</span>
+  </button>
+  <button onClick="{{ onTabRanking }}" style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 0 6px;gap:4px;background:none;border:none;cursor:pointer;color:{{ navRankingColor }};">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="{{ navRankingWidth }}" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9H3.5a1 1 0 01-1-1V5h3.5M18 9h2.5a1 1 0 001-1V5H18"></path><path d="M6 5h12v5a6 6 0 01-12 0V5z"></path><path d="M12 16v4"></path><path d="M8.5 20h7"></path></svg>
+    <span style="font-size:10px;font-weight:500;">랭킹</span>
+  </button>
+  <button onClick="{{ onTabRecords }}" style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 0 6px;gap:4px;background:none;border:none;cursor:pointer;color:{{ navRecordsColor }};">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="{{ navRecordsWidth }}" strokeLinecap="round" strokeLinejoin="round"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"></path><rect x="9" y="3" width="6" height="4" rx="1"></rect><path d="M9 12h6M9 16h4"></path></svg>
+    <span style="font-size:10px;font-weight:500;">기록</span>
+  </button>
+</nav>
+</div>
+</sc-if>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;gpsDropoutDemo&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Behavior&quot;}, &quot;defaultTab&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;run&quot;, &quot;options&quot;: [&quot;run&quot;, &quot;ranking&quot;, &quot;records&quot;], &quot;tsType&quot;: &quot;'run'|'ranking'|'records'&quot;, &quot;section&quot;: &quot;Behavior&quot;}}">
+class Component extends DCLogic {
+  static RANKINGS = [
+    { rank: 1, name: '달리는공룡', distance: 127.3 },
+    { rank: 2, name: '탄천마라토너', distance: 98.5 },
+    { rank: 3, name: '새벽러너김', distance: 87.2 },
+    { rank: 4, name: '성남러닝크루', distance: 74.8 },
+    { rank: 5, name: '뚝심주자', distance: 61.0, isMe: true },
+    { rank: 6, name: '탄천의별', distance: 54.3 },
+    { rank: 7, name: '동네한바퀴', distance: 48.7 },
+    { rank: 8, name: '매일조금씩', distance: 42.1 },
+    { rank: 9, name: '바람같이', distance: 38.4 },
+    { rank: 10, name: '오늘도달려', distance: 31.2 },
+    { rank: 11, name: '꾸준함이최고', distance: 28.9 },
+    { rank: 12, name: '느려도멀리', distance: 22.4 },
+    { rank: 13, name: '탄천초보러너', distance: 18.1 },
+    { rank: 14, name: '즐기는러너', distance: 12.7 },
+  ];
+  static HISTORY = [
+    { date: '2026. 09. 09', totalDist: 8.2, tancheonDist: 5.1, time: 2538, pace: 308, routeVariant: 0 },
+    { date: '2026. 09. 07', totalDist: 6.5, tancheonDist: 4.2, time: 2010, pace: 309, routeVariant: 1 },
+    { date: '2026. 09. 05', totalDist: 10.1, tancheonDist: 7.3, time: 3142, pace: 311, routeVariant: 0 },
+    { date: '2026. 09. 02', totalDist: 5.0, tancheonDist: 0.0, time: 1542, pace: 308, routeVariant: 2 },
+    { date: '2026. 08. 31', totalDist: 7.8, tancheonDist: 5.8, time: 2418, pace: 310, routeVariant: 0 },
+    { date: '2026. 08. 28', totalDist: 9.3, tancheonDist: 6.1, time: 2887, pace: 310, routeVariant: 1 },
+  ];
+  static MAP_ROUTE = [
+    { x: 80, y: 18, z: false }, { x: 96, y: 30, z: false }, { x: 113, y: 44, z: false },
+    { x: 124, y: 58, z: false }, { x: 130, y: 67, z: true }, { x: 136, y: 85, z: true },
+    { x: 141, y: 103, z: true }, { x: 145, y: 122, z: true }, { x: 146, y: 140, z: true },
+    { x: 144, y: 153, z: true }, { x: 147, y: 163, z: false }, { x: 153, y: 175, z: false },
+    { x: 162, y: 186, z: false },
+  ];
+  static MAP_ROUTE_V1 = [
+    { x: 220, y: 22, z: false }, { x: 204, y: 36, z: false }, { x: 190, y: 50, z: false },
+    { x: 182, y: 62, z: false }, { x: 175, y: 70, z: true }, { x: 168, y: 88, z: true },
+    { x: 163, y: 106, z: true }, { x: 160, y: 125, z: true }, { x: 159, y: 143, z: true },
+    { x: 162, y: 158, z: false }, { x: 168, y: 170, z: false }, { x: 176, y: 183, z: false },
+  ];
+  static MAP_ROUTE_V2 = [
+    { x: 260, y: 20, z: false }, { x: 265, y: 40, z: false }, { x: 268, y: 62, z: false },
+    { x: 270, y: 85, z: false }, { x: 268, y: 110, z: false }, { x: 265, y: 135, z: false },
+    { x: 263, y: 160, z: false }, { x: 262, y: 184, z: false },
+  ];
+  static TAKEN_NICKNAMES = ['달리는공룡', '탄천마라토너', '새벽러너김', '성남러닝크루', '탄천의별', '동네한바퀴', '매일조금씩', '바람같이', '오늘도달려', '꾸준함이최고', '느려도멀리', '탄천초보러너', '즐기는러너'];
+  static RANK_ACCENT = { 1: '#B8912A', 2: '#7E8C99', 3: '#9E6B4A' };
+
+  constructor(props) {
+    super(props);
+    this._timers = {};
+    this.state = {
+      screen: 'login', tab: props.defaultTab || 'run', nicknameInput: '',
+      countdown: 3, runTime: 0, totalDist: 0, tancheonDist: 0, inZone: false,
+      result: null, selectedRecord: null, settingsScreen: null, settingsReturnTab: 'run',
+      gpsReady: false, gpsDots: 1, manualGpsLost: false, mapZoom: 1, nicknameEditValue: '',
+    };
+  }
+
+  componentDidMount() {
+    this._prevScreen = this.state.screen;
+    this._prevTab = this.state.tab;
+    if (this.state.screen === 'home' && this.state.tab === 'run') this._startHomeGps();
+  }
+  componentWillUnmount() {
+    Object.values(this._timers).forEach(id => { clearInterval(id); clearTimeout(id); });
+  }
+  componentDidUpdate() {
+    const prevScreen = this._prevScreen;
+    const prevTab = this._prevTab;
+    if (this.state.screen === 'countdown' && prevScreen !== 'countdown') this._startCountdown();
+    if (this.state.screen === 'running' && prevScreen !== 'running') this._startRunning();
+    if (this.state.screen !== 'running' && prevScreen === 'running') clearInterval(this._timers.running);
+    const enteringHomeRun = this.state.screen === 'home' && this.state.tab === 'run' &&
+      !(prevScreen === 'home' && prevTab === 'run');
+    if (enteringHomeRun) this._startHomeGps();
+    this._prevScreen = this.state.screen;
+    this._prevTab = this.state.tab;
+  }
+
+  _startCountdown() {
+    this.setState({ countdown: 3 });
+    this._timers.countdown = setInterval(() => {
+      this.setState(s => {
+        const c = s.countdown - 1;
+        if (c <= 0) {
+          clearInterval(this._timers.countdown);
+          this._timers.go = setTimeout(() => {
+            this.setState({ runTime: 0, totalDist: 0, tancheonDist: 0, inZone: false, screen: 'running', manualGpsLost: false });
+          }, 900);
+        }
+        return { countdown: c };
+      });
+    }, 1000);
+  }
+  _startRunning() {
+    const dropoutOn = this.props.gpsDropoutDemo ?? true;
+    this._timers.running = setInterval(() => {
+      this.setState(s => {
+        if (s.screen !== 'running') return null;
+        const runTime = s.runTime + 1;
+        const lost = dropoutOn && runTime >= 20 && runTime < 24;
+        let totalDist = s.totalDist, tancheonDist = s.tancheonDist, inZone = s.inZone;
+        if (!lost) {
+          const speed = 0.0031;
+          totalDist = parseFloat((totalDist + speed).toFixed(4));
+          const zone = runTime >= 8 && runTime < 100;
+          inZone = zone;
+          if (zone) tancheonDist = parseFloat((tancheonDist + speed * 0.88).toFixed(4));
+        }
+        return { runTime, totalDist, tancheonDist, inZone };
+      });
+    }, 1000);
+  }
+  _startHomeGps() {
+    clearInterval(this._timers.gpsDots);
+    clearTimeout(this._timers.gpsReady);
+    this.setState({ gpsReady: false, gpsDots: 1 });
+    this._timers.gpsDots = setInterval(() => this.setState(s => ({ gpsDots: (s.gpsDots % 3) + 1 })), 500);
+    this._timers.gpsReady = setTimeout(() => {
+      this.setState({ gpsReady: true });
+      clearInterval(this._timers.gpsDots);
+    }, 1800);
+  }
+
+  fmtTime(sec) {
+    const h = Math.floor(sec / 3600), m = Math.floor((sec % 3600) / 60), s = sec % 60;
+    if (h > 0) return `${h}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+  }
+  fmtPace(secPerKm) {
+    if (secPerKm <= 0) return "--'--\"";
+    const m = Math.floor(secPerKm / 60), s = secPerKm % 60;
+    return `${m}'${String(s).padStart(2, '0')}"`;
+  }
+  getRouteForVariant(v) {
+    if (v === 1) return Component.MAP_ROUTE_V1;
+    if (v === 2) return Component.MAP_ROUTE_V2;
+    return Component.MAP_ROUTE;
+  }
+  computeViewBox(zoom) {
+    const cx = 163, cy = 110, baseW = 340, baseH = 220;
+    const w = baseW / zoom, h = baseH / zoom;
+    const vx = Math.max(0, Math.min(baseW - w, cx - w / 2));
+    const vy = Math.max(0, Math.min(baseH - h, cy - h / 2));
+    return `${vx.toFixed(1)} ${vy.toFixed(1)} ${w.toFixed(1)} ${h.toFixed(1)}`;
+  }
+
+  handleLogin = () => this.setState({ screen: 'nickname' });
+  handleNicknameConfirm = () => this.setState({ screen: 'home' });
+  handleStart = () => { if (this.state.gpsReady) this.setState({ screen: 'countdown' }); };
+  handleStop = () => {
+    const { totalDist, tancheonDist, runTime } = this.state;
+    const pace = totalDist > 0.05 ? Math.round(runTime / totalDist) : 0;
+    const bestDist = Component.HISTORY.length ? Math.max(...Component.HISTORY.map(h => h.totalDist)) : 0;
+    this.setState({
+      result: {
+        totalDist, tancheonDist, runTime,
+        paceStr: this.fmtPace(pace), date: '2026. 09. 10',
+        rank: tancheonDist > 0.05 ? 5 : -1, isPR: totalDist > bestDist,
+      },
+      screen: 'result',
+    });
+  };
+  handleViewRanking = () => this.setState({ tab: 'ranking', screen: 'home' });
+  handleViewRecords = () => this.setState({ tab: 'records', screen: 'home' });
+  handleTabChange = (t) => this.setState({ tab: t, selectedRecord: null, settingsScreen: null });
+  openSettings = () => this.setState(s => ({ settingsReturnTab: s.tab, settingsScreen: 'settings', selectedRecord: null }));
+  closeSettings = () => this.setState(s => ({ settingsScreen: null, tab: s.settingsReturnTab }));
+  goEditNickname = () => this.setState(s => ({ settingsScreen: 'nickname-edit', nicknameEditValue: s.nicknameInput || '뚝심주자' }));
+  backToSettings = () => this.setState({ settingsScreen: 'settings' });
+  saveNickname = (name) => this.setState({ nicknameInput: name, settingsScreen: 'settings' });
+  selectRecord = (r) => this.setState({ selectedRecord: r });
+  backFromRecord = () => this.setState({ selectedRecord: null });
+  zoomIn = () => this.setState(s => ({ mapZoom: Math.min(2.5, parseFloat((s.mapZoom + 0.5).toFixed(1))) }));
+  zoomOut = () => this.setState(s => ({ mapZoom: Math.max(1, parseFloat((s.mapZoom - 0.5).toFixed(1))) }));
+  zoomReset = () => this.setState({ mapZoom: 1 });
+
+  renderVals() {
+    const s = this.state;
+    let view;
+    if (['login', 'nickname', 'countdown', 'running', 'result'].includes(s.screen)) view = s.screen;
+    else if (s.settingsScreen === 'nickname-edit') view = 'nickname-edit';
+    else if (s.settingsScreen === 'settings') view = 'settings';
+    else if (s.selectedRecord) view = 'record-detail';
+    else view = 'home';
+
+    const nickname = s.nicknameInput || '뚝심주자';
+    const trimmedNick = s.nicknameInput.trim();
+    const isNicknameValid = trimmedNick.length >= 2 && trimmedNick.length <= 10 && !trimmedNick.includes(' ');
+    const showNicknameSpaceError = trimmedNick.length >= 2 && s.nicknameInput.includes(' ');
+
+    const countdownDisplay = s.countdown > 0 ? String(s.countdown) : 'GO!';
+    const countdownFontSize = s.countdown > 0 ? '128px' : '60px';
+    const countdownSubtext = s.countdown > 0 ? `${s.countdown}초 후 시작합니다` : '탄천을 달려요!';
+
+    const dropoutOn = this.props.gpsDropoutDemo ?? true;
+    const simulatedGpsLost = dropoutOn && s.runTime >= 20 && s.runTime < 24;
+    const gpsLostEffective = simulatedGpsLost || s.manualGpsLost;
+    const routeProgress = Math.min(1, s.runTime / 85);
+    const runPace = (!gpsLostEffective && s.totalDist > 0.05) ? Math.round(s.runTime / s.totalDist) : 0;
+    const runPaceDisplay = runPace > 0 ? this.fmtPace(runPace) : "--'--\"";
+
+    const zoomViewBox = this.computeViewBox(s.mapZoom);
+    const canZoomIn = s.mapZoom < 2.5;
+    const canZoomOut = s.mapZoom > 1;
+
+    const result = s.result;
+    let ranked = false, resultTotalDist = '0.00', resultTancheonDist = '0.00', resultRunTimeStr = '0:00',
+      resultPaceStr = "--'--\"", resultDate = '', resultIsPR = false, resultRank = 0;
+    if (result) {
+      ranked = result.rank > 0 && result.tancheonDist > 0.05;
+      resultTotalDist = result.totalDist.toFixed(2);
+      resultTancheonDist = result.tancheonDist.toFixed(2);
+      resultRunTimeStr = this.fmtTime(result.runTime);
+      resultPaceStr = result.paceStr;
+      resultDate = result.date;
+      resultIsPR = result.isPR;
+      resultRank = result.rank;
+    }
+
+    const rankings = Component.RANKINGS.map(r => {
+      const isTop3 = r.rank <= 3;
+      const color = isTop3 ? Component.RANK_ACCENT[r.rank] : (r.isMe ? '#4878F6' : '#6B7280');
+      return {
+        ...r, name: r.isMe ? nickname : r.name, color, isTop3,
+        nameColor: r.isMe ? '#4878F6' : '#1A1A2E',
+        rowBg: r.isMe ? '#EBF1FF' : '#FFFFFF',
+        rowBorder: r.isMe ? '#DBEAFE' : '#E5E4DE',
+      };
+    });
+    const myEntry = rankings.find(r => r.isMe) || { rank: 0, distance: 0 };
+
+    const history = Component.HISTORY.map((h, i) => ({
+      ...h, timeStr: this.fmtTime(h.time), paceStr: this.fmtPace(h.pace),
+      isOutside: h.tancheonDist === 0,
+      divider: i < Component.HISTORY.length - 1 ? '#E5E4DE' : 'transparent',
+      onSelect: () => this.selectRecord(h),
+    }));
+    const bestDist = Math.max(...Component.HISTORY.map(h => h.totalDist));
+    const bestPaceVal = Math.min(...Component.HISTORY.filter(h => h.pace > 0).map(h => h.pace));
+    const bestTimeVal = Math.max(...Component.HISTORY.map(h => h.time));
+    const totalAccDist = Component.HISTORY.reduce((a, h) => a + h.totalDist, 0).toFixed(1);
+    const totalAccTancheon = Component.HISTORY.reduce((a, h) => a + h.tancheonDist, 0).toFixed(1);
+
+    let recDetail = null;
+    if (s.selectedRecord) {
+      const rec = s.selectedRecord;
+      recDetail = {
+        date: rec.date, totalDist: rec.totalDist, tancheonDist: rec.tancheonDist,
+        timeStr: this.fmtTime(rec.time), paceStr: this.fmtPace(rec.pace),
+        hasZone: rec.tancheonDist > 0, zoneColor: rec.tancheonDist > 0 ? '#16A34A' : '#1A1A2E',
+        route: this.getRouteForVariant(rec.routeVariant ?? 0),
+      };
+    }
+
+    const editVal = s.nicknameEditValue;
+    const editTrim = editVal.trim();
+    const isEmpty = editTrim.length === 0;
+    const hasSpace = editTrim.includes(' ');
+    const tooShort = editTrim.length < 2;
+    const tooLong = editTrim.length > 10;
+    const isTaken = Component.TAKEN_NICKNAMES.map(n => n.toLowerCase()).includes(editTrim.toLowerCase());
+    const unchanged = editTrim === nickname;
+    const editIsValid = !isEmpty && !hasSpace && !tooShort && !tooLong && !isTaken && !unchanged;
+    let editErrorMsg = '';
+    if (isEmpty && editVal.length > 0) editErrorMsg = '닉네임을 입력해주세요.';
+    else if (hasSpace) editErrorMsg = '공백은 포함할 수 없습니다.';
+    else if (tooShort && editVal.length > 0) editErrorMsg = '2자 이상 입력해주세요.';
+    else if (tooLong) editErrorMsg = '10자 이하로 입력해주세요.';
+    else if (isTaken) editErrorMsg = '이미 사용 중인 닉네임입니다.';
+    const showUnchangedMsg = !editErrorMsg && unchanged && editTrim.length >= 2;
+
+    return {
+      view, showStatusBar: view !== 'countdown',
+      isLogin: view === 'login', isNickname: view === 'nickname', isCountdown: view === 'countdown',
+      isRunning: view === 'running', isResult: view === 'result', isSettings: view === 'settings',
+      isNicknameEdit: view === 'nickname-edit', isRecordDetail: view === 'record-detail', isHome: view === 'home',
+      isTabRun: s.tab === 'run' && view === 'home', isTabRanking: s.tab === 'ranking' && view === 'home',
+      isTabRecords: s.tab === 'records' && view === 'home',
+
+      nickname, nicknameInput: s.nicknameInput,
+      onNicknameChange: e => this.setState({ nicknameInput: e.target.value }),
+      onLogin: this.handleLogin, onNicknameConfirm: this.handleNicknameConfirm,
+      isNicknameValid, nicknameLen: s.nicknameInput.length, showNicknameSpaceError,
+      nicknameBtnBg: isNicknameValid ? '#4878F6' : '#F0EFE9', nicknameBtnFg: isNicknameValid ? '#FFFFFF' : '#9CA3AF',
+      nicknameBtnCursor: isNicknameValid ? 'pointer' : 'not-allowed',
+
+      onStart: this.handleStart, gpsReady: s.gpsReady, gpsDotsText: '.'.repeat(s.gpsDots),
+      startBg: s.gpsReady ? '#4878F6' : '#F0EFE9', startFg: s.gpsReady ? '#FFFFFF' : '#9CA3AF',
+      startCursor: s.gpsReady ? 'pointer' : 'not-allowed', startLabel: s.gpsReady ? '러닝 시작하기' : 'GPS 확인 중...',
+
+      countdownDisplay, countdownFontSize, countdownSubtext,
+
+      runTimeDisplay: this.fmtTime(s.runTime), gpsLostEffective, inZone: s.inZone,
+      totalDistDisplay: s.totalDist.toFixed(2), tancheonDistDisplay: s.tancheonDist.toFixed(2),
+      zoneStatColor: (s.inZone && !gpsLostEffective) ? '#16A34A' : '#1A1A2E',
+      runPaceDisplay, onStop: this.handleStop,
+      onGpsBreak: () => this.setState({ manualGpsLost: true }), onGpsRestore: () => this.setState({ manualGpsLost: false }),
+      routeMain: Component.MAP_ROUTE, routeProgress,
+
+      resultDate, resultIsPR, ranked, resultRank, resultTancheonDist, resultTotalDist, resultRunTimeStr, resultPaceStr,
+      onViewRanking: this.handleViewRanking, onViewRecords: this.handleViewRecords,
+
+      onSettings: this.openSettings, onCloseSettings: this.closeSettings, onEditNickname: this.goEditNickname,
+
+      nicknameEditValue: editVal, onNicknameEditChange: e => this.setState({ nicknameEditValue: e.target.value }),
+      editErrorMsg, showUnchangedMsg, editIsValid, editLen: editVal.length,
+      editBtnBg: editIsValid ? '#4878F6' : '#F0EFE9', editBtnFg: editIsValid ? '#FFFFFF' : '#9CA3AF',
+      editBtnCursor: editIsValid ? 'pointer' : 'not-allowed',
+      onBackToSettings: this.backToSettings, onSaveNickname: () => { if (editIsValid) this.saveNickname(editTrim); },
+
+      rankings, myEntry, rankingsCount: rankings.length,
+
+      history, bestDistDisplay: String(bestDist), bestPaceDisplay: this.fmtPace(bestPaceVal),
+      bestTimeDisplay: this.fmtTime(bestTimeVal), totalAccDist, totalAccTancheon,
+
+      recDetail, onBackFromRecord: this.backFromRecord,
+
+      zoomViewBox, canZoomIn, canZoomOut, onZoomIn: this.zoomIn, onZoomOut: this.zoomOut, onZoomReset: this.zoomReset,
+
+      onTabRun: () => this.handleTabChange('run'), onTabRanking: () => this.handleTabChange('ranking'),
+      onTabRecords: () => this.handleTabChange('records'),
+      navRunColor: s.tab === 'run' ? '#4878F6' : '#9CA3AF', navRunWidth: s.tab === 'run' ? 2.5 : 1.8,
+      navRunDot: s.tab === 'run' ? 'currentColor' : 'none',
+      navRankingColor: s.tab === 'ranking' ? '#4878F6' : '#9CA3AF', navRankingWidth: s.tab === 'ranking' ? 2.5 : 1.8,
+      navRecordsColor: s.tab === 'records' ? '#4878F6' : '#9CA3AF', navRecordsWidth: s.tab === 'records' ? 2.5 : 1.8,
+    };
+  }
+}
+</script>
+</body>
+</html>
