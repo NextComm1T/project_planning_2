@@ -89,4 +89,19 @@ PR 제목도 Conventional Commits 형식을 사용한다.
 - `fix: GPS 권한 거부 시 무한 로딩 수정`
 - `refactor: 랭킹 조회 로직 서비스 계층 분리`
 
-> 코드가 들어오면 `docs/PROJECT_COMMANDS.md` 와 `docs/ARCHITECTURE.md` 를 추가하고 여기서 `@` 로 불러온다.
+## 9. 코드 문서
+
+코드가 들어왔으므로 아래를 함께 읽는다.
+
+@docs/PROJECT_COMMANDS.md
+@docs/ARCHITECTURE.md
+
+화면 담당·경로·디자인 원본 위치는 `docs/SCREEN_ASSIGNMENTS.md` 를 본다.
+
+## 10. 구현 기준은 디자인이다 (2026-09-14 팀 확정)
+
+화면 구현의 기준은 `docs/` 의 기획 문서가 아니라 **캡처된 디자인**(루트 `탄천런.dc.html`)이다.
+기획 문서는 후순위로 두고, 구현이 끝난 뒤 한 번에 문서를 구현에 맞춘다.
+
+따라서 **기획 문서(`docs/01~07`)를 임의로 고치지 않는다.** 구현이 문서와 갈리는 지점을 발견하면
+`modify/YYYY-MM-DD-<화면>.md` 에 「문서가 말하는 것 / 실제로 한 것 / 고쳐야 할 문서 위치」 세 줄로 기록한다.
