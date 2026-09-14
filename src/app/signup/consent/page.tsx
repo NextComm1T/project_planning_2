@@ -44,7 +44,7 @@ export default async function SignupConsentPage({
 
   return (
     <AppShell header={<Header title="가입하기" showBack backHref="/login" />}>
-      <h2 className="mb-2.5 pt-[22px] text-metric font-extrabold tracking-[-0.5px]">
+      <h2 className="mb-2.5 pt-[22px] text-metric leading-[normal] font-extrabold tracking-[-0.5px]">
         서비스 이용을 위해
         <br />
         아래 내용을 확인해주세요.

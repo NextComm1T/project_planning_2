@@ -29,21 +29,25 @@ export function ConsentForm({ children }: ConsentFormProps) {
   }
 
   return (
-    <div className="flex flex-1 flex-col">
+    <div className="flex flex-1 flex-col pb-[22px]">
       <div className="rounded-2xl border-[1.5px] border-border bg-surface shadow-card">
         {/*
           토글과 상세 이동은 서로 다른 동작이다. 두 영역이 겹치지 않게 형제로
           두고, 버튼 안에 버튼을 넣지 않는다. 체크 네모는 <span> 이고 클릭은
           바깥 토글 버튼이 받는다.
         */}
-        <div className="flex items-center pr-5">
+        <div className="flex items-center py-[17px] pr-5">
           <button
             type="button"
             role="checkbox"
             aria-checked={agreed}
             onClick={() => setAgreed((prev) => !prev)}
-            /* py-[17px] + 26px = 60px 높이라 최소 터치 영역 48×48 을 만족한다. */
-            className="flex min-w-0 flex-1 cursor-pointer items-center gap-[14px] py-[17px] pl-5 text-left"
+            /*
+              세로 여백 11px 로 hit area 를 48px 로 만들고, 음수 margin 으로
+              레이아웃 높이는 체크 네모 26px 그대로 둔다 — 카드 높이를
+              디자인(L107 행 = 화살표 32px 기준)과 맞추기 위해서다.
+            */
+            className="-my-[11px] flex min-w-0 flex-1 cursor-pointer items-center gap-[14px] py-[11px] pl-5 text-left"
           >
             <span
               className={`flex size-[26px] shrink-0 items-center justify-center rounded-[9px] border-[1.5px] ${
@@ -80,13 +84,13 @@ export function ConsentForm({ children }: ConsentFormProps) {
 
           {/*
             디자인의 화살표 버튼은 배경이 없어(L115) 보이는 것은 아이콘뿐이다.
-            클릭 상자만 48×48 로 키우고 -mr-2 로 되돌리면 아이콘 위치는
+            클릭 상자만 48×48 로 키우고 음수 margin 으로 되돌리면 아이콘 위치는
             디자인 그대로(오른쪽에서 36px)이면서 터치 영역만 넓어진다.
           */}
           <Link
             href="/signup/consent/detail"
             aria-label="개인정보 수집·이용 동의 내용 보기"
-            className="-mr-2 flex size-12 shrink-0 items-center justify-center text-muted"
+            className="-my-2 -mr-2 flex size-12 shrink-0 items-center justify-center text-muted"
           >
             <svg
               width="18"
