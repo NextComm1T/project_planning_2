@@ -6,8 +6,17 @@ import { useState } from "react";
 const MIN_LENGTH = 2;
 const MAX_LENGTH = 10;
 
-/** 한글·영문·숫자만 허용한다(P10 · 디자인 L1194). */
-const DISALLOWED_CHAR = /[^가-힣a-zA-Z0-9]/;
+/**
+ * 한글·영문·숫자만 허용한다(P10 · 디자인 L1194).
+ *
+ * `ㄱ-ㅎㅏ-ㅣ` 를 함께 허용해야 **한글 자음·모음만으로 된 닉네임**이 통과한다
+ * (P10 팀 확정 2026-09-11 9차). `가-힣` 은 조합된 음절(U+AC00-U+D7A3)뿐이라
+ * 이 범위가 없으면 "ㄱㄴㄷ" 이 특수문자로 걸린다.
+ *
+ * 닉네임 수정 화면(#51 `settings/nickname/NicknameEditForm.tsx`)과 **같은 규칙이어야 한다**
+ * — 최초 설정과 수정은 같은 P10 을 쓴다(이슈 #51 참고).
+ */
+const DISALLOWED_CHAR = /[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9]/;
 
 /**
  * 중복 판정용 mock.
