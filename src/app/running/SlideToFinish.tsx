@@ -12,8 +12,11 @@ import { useRouter } from "next/navigation";
  * 돌아가지 않게 하는 정상 흐름 통합 정책이다(이슈 #40 · #41 결정 이력).
  */
 
-/** 결과 화면(#41)의 mock session id. #41 이 머지되면 실제 id 와 맞춘다 · `modify/` 6번. */
-const RESULT_HREF = "/result/ranked";
+/**
+ * 결과 화면(#41)의 mock session id `"2"` — 랭킹 반영 · 개인 최고 기록 아님.
+ * 정본 `handleStop`(L1155-1167)이 인정 거리가 있는 보통 러닝을 이렇게 분류한다 · `modify/` 6번.
+ */
+const RESULT_HREF = "/result/2";
 
 /** 트랙 안에서 핸들이 갖는 여백과 크기(디자인 L291-292). */
 const KNOB_INSET = 6;
