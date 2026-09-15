@@ -142,9 +142,9 @@ import heroOtter from "@assets/otter-hero-wide-v2.png";
 
 1. **디자인을 연다** — [SCREEN_ASSIGNMENTS.md](./SCREEN_ASSIGNMENTS.md) 에서 내 화면의 `탄천런.dc.html` 줄 범위를 찾는다. 브라우저로 `탄천런.dc.html` 을 직접 열면 실제 화면도 볼 수 있다.
 2. **폴더를 만든다** — `src/app/<route>/page.tsx`. 조각이 필요하면 같은 폴더에.
-3. **AppShell 로 감싼다** — 헤더가 필요하면 `header={<Header ... />}`, 탭바가 필요하면 `bottom={<BottomNav />}`.
+3. **AppShell 로 감싼다** — 탭바가 필요하면 `bottom={<BottomNav />}`. 공용 `Header` 는 디자인 상단이 그 구조(sticky · 아래 테두리 · 20px 제목 · 40px 뒤로 가기)와 맞을 때만 `header={<Header ... />}` 로 쓴다. 맞지 않으면 화면 폴더 안에 로컬로 그리고, 그 이유로 `src/components/shared/*` API 를 바꾸지 않는다. 화면별 이슈에 정해져 있다.
 4. **토큰으로 그린다** — 임의 hex 금지. 디자인의 인라인 style 을 Tailwind 유틸로 옮긴다.
-5. **4상태를 채운다** — 불러오는 중 · 빈 상태 · 오류 · 정상. `07-screens.md:12` 의 공통 완료 기준이고, 오류일 때는 "다시 시도" 같은 다음 행동이 보여야 한다.
+5. **상태를 구분한다** — `07-screens.md:12` 의 불러오는 중 · 빈 상태 · 오류 · 정상은 **실제로 성립할 때만** 구현한다. 오류가 있으면 "다시 시도" 같은 다음 행동이 보여야 한다. 서버/API 요청이 없는 mock 범위에서는 실패할 요청이 없으므로 가짜 Promise · query error 로 loading/error 를 만들지 않는다. 대신 화면별 이슈의 「상태 정의」(GPS 확인 중 · 빈 목록 · 없는 session id 등)를 구분하고, 그 정의가 이 줄보다 우선한다.
 
 그리고 `npm run lint` · `npm run build`.
 
