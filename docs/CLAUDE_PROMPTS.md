@@ -21,6 +21,29 @@
 
 ---
 
+## 0-1. develop 전환 후 — 기존 로컬 저장소에서 이어서 시작
+
+2026-09-15 부터 `feature → develop → main` 이다(`CONTRIBUTING.md` §0). 이미 받아 둔 저장소가 `main` 에 있으면 아래를 **한 번** 붙여 넣은 뒤 §1 로 이슈를 시작한다.
+
+```
+이 저장소의 git workflow 가 feature → develop → main 으로 바뀌었어. 내 로컬을 새 흐름에 맞춰줘.
+아래 순서대로 하고 단계마다 결과를 짧게 보여줘. 예상과 다르면 멈추고 알려줘.
+
+1. git status 로 working tree 가 깨끗한지 확인해. 커밋하지 않은 변경이 있으면 아무것도 하지 말고 알려줘.
+2. git switch main 후 git pull --ff-only origin main 으로 main 을 최신화해.
+3. git fetch origin --prune 후 git switch develop 으로 develop 으로 넘어가(origin/develop 을 추적하는 로컬 branch 가 생긴다).
+   이미 로컬 develop 이 있으면 git pull --ff-only origin develop 으로 최신화해.
+4. CONTRIBUTING.md §0 · §1 · §4 와 docs/SCREEN_ASSIGNMENTS.md 「시작 순서」를 읽고 바뀐 규칙을 세 줄로 요약해.
+5. npm install 후 npm run lint · npm run build 가 통과하는지 확인해.
+
+지킬 것:
+- main · develop 에서 직접 커밋하지 마. 작업은 develop 에서 새 branch 를 만들어 해.
+- force push · rebase · reset --hard 는 하지 마.
+- merge 는 하지 마. 병합은 담당자가 한다.
+```
+
+---
+
 ## 1. 화면 작업 — 이것만 바꿔 쓰면 된다
 
 `<이슈번호>` 와 `<슬러그>` 두 군데만 자기 것으로 바꾼다. 슬러그는 짧은 영문 kebab-case (`running-screen`, `settings-nickname` 처럼).
@@ -29,7 +52,9 @@
 GitHub 이슈 #<이슈번호> 를 구현할 거야.
 
 시작 전에:
-1. `gh issue view <이슈번호>` 로 이슈 전문을 읽어. 구현 범위 · Acceptance Criteria · 제외 범위가 거기 다 있어.
+1. `gh api repos/NextComm1T/tanchunrun/issues/<이슈번호> --jq .body` 로 이슈 전문을 읽어
+   (이 저장소는 `gh issue view` 가 GitHub Projects classic 지원 종료 오류로 실패해).
+   구현 범위 · Acceptance Criteria · 제외 범위 · 결정 이력이 거기 다 있어.
 2. 이슈에 적힌 `탄천런.dc.html` 줄 범위를 직접 읽어. 그 마크업이 구현의 기준이야.
 3. docs/SCREEN_ASSIGNMENTS.md 의 충돌 방지 규칙을 확인해.
 4. 이미 있는 src/app/login/ 을 읽어. 같은 방식으로 만들면 돼.
@@ -40,6 +65,8 @@ GitHub 이슈 #<이슈번호> 를 구현할 거야.
   src/app/layout.tsx, package.json 은 건드리지 마 — 필요하면 먼저 나한테 말해.
 - 색·크기는 globals.css 토큰만 써. 임의 hex 를 새로 쓰지 마.
 - 서버가 없으니 데이터는 mock 으로 만들어. 가짜 성공/실패로 동작을 흉내내지는 마.
+- 공용 Header 사용 여부와 상태(loading · empty · error · 도메인 상태)는 이슈 본문에 정해진 대로만 해.
+  이슈에 없는 loading/error 를 가짜 Promise 나 query 로 만들지 마.
 - 디자인이 기획 문서와 다르면 문서를 고치지 말고
   modify/<오늘날짜>-<화면>.md 에 「문서가 말하는 것 / 실제로 한 것 / 고쳐야 할 문서 위치」 세 줄로 기록해.
 
@@ -60,11 +87,13 @@ GitHub 이슈 #<이슈번호> 를 구현할 거야.
 | C 홈·기록 | #42 홈 달리기 탭 · #43 랭킹 탭 · #44 기록 탭 · #45 기록 상세 |
 | D 설정 | #46 설정 · #47 위치정보 · #48 개인정보처리방침 · #49 동의 보기 · #50 회원탈퇴 · #51 닉네임 수정 |
 
-**B · C 는 #33 이 머지된 뒤 시작한다.** A · D 는 지금 바로 가능하다.
+**A · D 는 완료, 공용 선행 #33 · #34 는 머지됐다.** B · C 는 `develop` 에서 바로 시작할 수 있다. 이슈마다 선행(지도 #33 · 탭바 #34)이 적혀 있고, 추천 순서는 #41 · #43 · #44 → #40 · #45 → #42 다.
 
 ---
 
-## 2. 선행 공용 컴포넌트 (#33 · #34)
+## 2. 선행 공용 컴포넌트 (#33 · #34) — ✅ 완료
+
+**#63 · #64 로 머지됐다.** 사용법은 `docs/ARCHITECTURE.md` 「공용 컴포넌트」의 `BottomNav` · `TancheonMap` 에 있다. 아래 프롬프트는 앞으로 새 공용 컴포넌트를 만들 때 참고용으로 남긴다.
 
 이 둘은 화면이 아니라 여러 화면이 함께 쓰는 부품이라, 규칙이 조금 다르다.
 
@@ -72,7 +101,7 @@ GitHub 이슈 #<이슈번호> 를 구현할 거야.
 GitHub 이슈 #<33 또는 34> 를 구현할 거야. 이건 화면이 아니라 공용 컴포넌트야.
 
 시작 전에:
-1. `gh issue view <이슈번호>` 로 이슈 전문을 읽어.
+1. `gh api repos/NextComm1T/tanchunrun/issues/<이슈번호> --jq .body` 로 이슈 전문을 읽어.
 2. 이슈에 적힌 디자인 원본을 직접 읽어.
 3. 이 컴포넌트를 쓰게 될 화면 이슈들도 훑어봐. props 계약이 그 화면들을 다 감당해야 해.
 
@@ -114,7 +143,7 @@ npm run lint 와 npm run build 를 돌리고, npm run dev 로 <route> 를 실제
 - base 는 develop 이야. body 에는 `Refs #<이슈번호>` 를 넣어(develop 대상 PR 은 Closes 로 이슈가 자동으로 닫히지 않아).
 - 검증 항목은 실제로 한 것만 체크해. 안 한 건 안 했다고 적어.
 - 화면 스크린샷은 내가 직접 붙일 테니 자리만 비워둬.
-- push 까지만 하고 merge 는 하지 마.
+- push 까지만 하고 merge 는 하지 마. 병합은 담당자가 한다.
 ```
 
 ### 문서와 다른 걸 발견했을 때
@@ -146,5 +175,5 @@ npm run lint 와 npm run build 를 돌리고, npm run dev 로 <route> 를 실제
 
 - **공용 파일을 건드리라고 하면 멈춰라.** `globals.css` · `components/shared/*` · `layout.tsx` · `package.json` 은 전원이 공유한다. Claude 가 "토큰을 추가하겠다"거나 "AppShell 을 고치겠다"고 하면 팀에 먼저 말한다.
 - **"테스트 완료"를 그대로 믿지 마라.** 이 프로젝트에 테스트 러너는 없다. lint · build · 브라우저 확인 세 가지뿐이다.
-- **merge 는 사람이 한다.** 프롬프트에 push 까지만 시키고 merge 는 리뷰 후에 직접 한다.
+- **merge 는 담당자만 한다.** 팀원은 push · PR 까지만 한다. PR 병합(`develop` 머지 · `develop` → `main` 승격)은 담당자(@wol20670) 노트북에서만 진행한다.
 - **로그인 버튼이 안 눌리는 건 정상이다.** OAuth 는 아직 연동 전이고, 화면 작업이 아니라 별도 트랙이다.

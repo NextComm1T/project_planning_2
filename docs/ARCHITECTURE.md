@@ -26,7 +26,9 @@ src/
 └─ components/shared/      여러 화면이 쓰는 것만
    ├─ AppShell.tsx
    ├─ Header.tsx
-   └─ BackButton.tsx
+   ├─ BackButton.tsx
+   ├─ BottomNav.tsx        홈 3개 탭 하단 탭바 (#34)
+   └─ TancheonMap.tsx      탄천 지도 (#33)
 ```
 
 **규칙 하나로 줄이면**: 그 화면에서만 쓰면 화면 폴더 안에, 두 화면 이상이 쓰면 `components/shared/`.
@@ -67,6 +69,52 @@ src/
 ### `BackButton`
 
 `Header` 가 알아서 쓴다. 직접 쓸 일은 거의 없다. `router.back()` 을 쓰고, `href` 를 주면 그쪽으로 이동한다. 시각 크기는 40×40 이지만 터치 영역은 48×48 이다(`07-screens.md:15`).
+
+### `BottomNav`
+
+홈 3개 탭 — 달리기(`/home`) · 랭킹(`/ranking`) · 기록(`/records`) — 이 공유하는 하단 탭바(#34). props 가 없다.
+
+```tsx
+import { BottomNav } from "@/components/shared/BottomNav";
+
+<AppShell bottom={<BottomNav />}>{children}</AppShell>
+```
+
+- 활성 탭은 `usePathname` 으로 판단한다. 하위 경로(`/records/[sessionId]`)에서도 그 탭이 활성이다.
+- 탭바가 없어야 하는 화면(로그인 · 가입 · 러닝 진행 · 결과 · 기록 상세 · 설정 하위, 홈의 카운트다운 중)은 `bottom` 슬롯을 비운다. 컴포넌트 안에서 경로를 분기하지 않는다.
+- 설정은 탭이 아니다 — 각 탭 상단의 기어로 들어간다(`modify/2026-09-14.md` 1번).
+- 달리기 탭이 `/` 가 아니라 `/home` 인 이유는 `modify/2026-09-15-bottomnav.md`.
+
+### `TancheonMap`
+
+러닝 진행(#40) · 결과(#41) · 기록 상세(#45) · 홈 달리기 탭(#42)이 쓰는 탄천 지도(#33). 좌표계는 원본 SVG 그대로 `MAP_WIDTH`×`MAP_HEIGHT`(340×220)이고, 경로 좌표도 이 좌표계의 값이다.
+
+```tsx
+import { TancheonMap, type RouteSegment } from "@/components/shared/TancheonMap";
+
+// 러닝 진행 — 현재 위치 마커 · 확대
+<TancheonMap route={segments} endMarker={gpsLost ? "gps-lost" : "running"} viewBox={zoomViewBox} />
+
+// 결과 · 기록 상세 — 끝난 경로
+<TancheonMap route={segments} />
+
+// 홈 달리기 탭 — 경로 없이 내 위치만
+<TancheonMap userPin={{ x: 155, y: 112 }} viewBox={zoomViewBox} />
+```
+
+| props | 뜻 |
+| --- | --- |
+| `route?: RouteSegment[]` | 연속 구간 배열(`{ x, y, inZone }[][]`). **구간과 구간 사이는 선을 잇지 않는다** — GPS 가 끊긴 자리다(P2) |
+| `endMarker?: "finished" \| "running" \| "gps-lost"` | 경로 끝점 표시. 기본 `finished`(끝점이 Zone 안이면 파랑, 밖이면 회색) · `running`(현재 위치) · `gps-lost`(유실 색 + "위치 확인 중…") |
+| `userPin?: { x, y }` | 경로 없이 내 위치만 찍는다(홈). `route` 와 함께 넘기면 마커가 겹친다 |
+| `viewBox?: string` | 기본 `0 0 340 220`. 확대한 값은 화면이 계산해서 넘긴다 |
+| `label?: string` | 스크린리더가 읽을 이름. 기본 "탄천 지도" |
+
+- `inZone` 이 바뀌는 점은 앞뒤 선이 함께 가져서 경계에서 색이 갈린다(R11). 경계점을 계산해 넣는 것은 호출하는 쪽(mock 데이터) 몫이다.
+- 속도 초과 구간(P9)을 위한 props 는 없다 — 일반 구간과 같은 스타일로 그린다.
+- **그리지 않는 것** — 확대 · 축소 · 재중심 버튼, 범례, GPS 경고 카드, GPS 확인 중 딤. 디자인에서 지도 바깥 요소라 각 화면이 지도 위에 그린다. 확대 값 · 단계 계산도 화면 몫이다.
+- **크기는 부모가 정한다** — `size-full` 이라 부모 상자에 높이가 있어야 한다. `preserveAspectRatio="xMidYMid slice"` 라 상자 비율에 맞춰 잘린다.
+- `"use client"` 가 없는 환경 중립 컴포넌트다. 클라이언트 화면 안에서 쓰면 클라이언트로 돈다.
 
 ## 디자인 토큰
 
@@ -142,9 +190,9 @@ import heroOtter from "@assets/otter-hero-wide-v2.png";
 
 1. **디자인을 연다** — [SCREEN_ASSIGNMENTS.md](./SCREEN_ASSIGNMENTS.md) 에서 내 화면의 `탄천런.dc.html` 줄 범위를 찾는다. 브라우저로 `탄천런.dc.html` 을 직접 열면 실제 화면도 볼 수 있다.
 2. **폴더를 만든다** — `src/app/<route>/page.tsx`. 조각이 필요하면 같은 폴더에.
-3. **AppShell 로 감싼다** — 헤더가 필요하면 `header={<Header ... />}`, 탭바가 필요하면 `bottom={<BottomNav />}`.
+3. **AppShell 로 감싼다** — 탭바가 필요하면 `bottom={<BottomNav />}`. 공용 `Header` 는 디자인 상단이 그 구조(sticky · 아래 테두리 · 20px 제목 · 40px 뒤로 가기)와 맞을 때만 `header={<Header ... />}` 로 쓴다. 맞지 않으면 화면 폴더 안에 로컬로 그리고, 그 이유로 `src/components/shared/*` API 를 바꾸지 않는다. 화면별 이슈에 정해져 있다.
 4. **토큰으로 그린다** — 임의 hex 금지. 디자인의 인라인 style 을 Tailwind 유틸로 옮긴다.
-5. **4상태를 채운다** — 불러오는 중 · 빈 상태 · 오류 · 정상. `07-screens.md:12` 의 공통 완료 기준이고, 오류일 때는 "다시 시도" 같은 다음 행동이 보여야 한다.
+5. **상태를 구분한다** — `07-screens.md:12` 의 불러오는 중 · 빈 상태 · 오류 · 정상은 **실제로 성립할 때만** 구현한다. 오류가 있으면 "다시 시도" 같은 다음 행동이 보여야 한다. 서버/API 요청이 없는 mock 범위에서는 실패할 요청이 없으므로 가짜 Promise · query error 로 loading/error 를 만들지 않는다. 대신 화면별 이슈의 「상태 정의」(GPS 확인 중 · 빈 목록 · 없는 session id 등)를 구분하고, 그 정의가 이 줄보다 우선한다.
 
 그리고 `npm run lint` · `npm run build`.
 
