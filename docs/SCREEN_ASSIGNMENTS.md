@@ -12,8 +12,9 @@
 ## 시작하기 전에
 
 ```bash
-git switch main
-git pull --ff-only origin main
+git fetch origin
+git switch develop
+git pull --ff-only origin develop
 npm install
 npm run dev
 ```
@@ -89,12 +90,13 @@ D 가 개수는 많지만 위치정보·개인정보처리방침·동의 보기�
 `CONTRIBUTING.md` 를 따른다. 화면 작업은 전부 `feat/<issue>-<slug>` 다.
 
 ```bash
-git switch main
-git pull --ff-only origin main
+git fetch origin
+git switch develop
+git pull --ff-only origin develop
 git switch -c feat/36-running-screen
 ```
 
-PR 에는 `Closes #36` 을 넣고, **화면 스크린샷을 첨부한다.** 디자인이 기준인 작업이라 리뷰어가 눈으로 봐야 한다.
+PR base 는 `develop` 이다. PR 에는 `Refs #36` 을 넣고, **화면 스크린샷을 첨부한다.** 디자인이 기준인 작업이라 리뷰어가 눈으로 봐야 한다.
 
 ## 공통 완료 조건
 
