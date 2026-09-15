@@ -5,7 +5,8 @@ import type { ReactNode } from "react";
 import { AppShell } from "@/components/shared/AppShell";
 import { TancheonMap } from "@/components/shared/TancheonMap";
 
-import { findSession, formatDuration, formatPace, type RunSession } from "../mock";
+import { formatDate, formatDuration, formatPace } from "../format";
+import { findSession, type RunSession } from "../mock";
 
 /**
  * 화면 로컬 헤더(정본 L630-638).
@@ -130,28 +131,28 @@ function Metric({
 /** 수치 4개 카드(정본 L658-676). */
 function MetricGrid({ session }: { session: RunSession }) {
   // 정본 `zoneColor`(L1252) — 인정 거리가 0이면 강조하지 않고 기본 글자색으로 둔다.
-  const zoneTone = session.tancheonDist > 0 ? "text-success" : "text-foreground";
+  const zoneTone = session.tancheonDistanceKm > 0 ? "text-success" : "text-foreground";
 
   return (
     <div className="mx-4 mt-3 mb-[22px] shrink-0 overflow-hidden rounded-2xl border-[1.5px] border-border bg-surface shadow-card">
       <div className="grid grid-cols-2">
         <Metric
           label="총 거리"
-          value={String(session.totalDist)}
+          value={String(session.totalDistanceKm)}
           unit="km"
           borderClassName="border-b border-surface-muted"
         />
         <Metric
           label="탄천 인정"
-          value={String(session.tancheonDist)}
+          value={String(session.tancheonDistanceKm)}
           unit="km"
           tone={zoneTone}
           borderClassName="border-b border-l border-surface-muted"
         />
-        <Metric label="러닝 시간" value={formatDuration(session.time)} borderClassName="" />
+        <Metric label="러닝 시간" value={formatDuration(session.durationSec)} borderClassName="" />
         <Metric
           label="평균 페이스"
-          value={formatPace(session.pace)}
+          value={formatPace(session.paceSecPerKm)}
           unit="/km"
           borderClassName="border-l border-surface-muted"
         />
@@ -175,16 +176,19 @@ export default async function RecordDetailPage({
 
   if (!session) notFound();
 
+  // 세션 일자는 `YYYY-MM-DD` 로 저장돼 있어 정본 표기(`2026. 09. 09`)로 바꿔 보여 준다.
+  const displayDate = formatDate(session.date);
+
   return (
-    <AppShell padded={false} header={<RecordDetailHeader date={session.date} />}>
+    <AppShell padded={false} header={<RecordDetailHeader date={displayDate} />}>
       <div className="mx-4 mt-3.5 flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl border-[1.5px] border-border bg-surface shadow-card">
         <div className="min-h-0 flex-1">
           {/* 끝난 경로라 기본 `endMarker="finished"` 그대로다(`docs/ARCHITECTURE.md`). */}
-          <TancheonMap route={session.route} label={`${session.date} 러닝 경로`} />
+          <TancheonMap route={session.route} label={`${displayDate} 러닝 경로`} />
         </div>
 
         <div className="shrink-0 border-t border-surface-muted px-[18px] pt-2 pb-2.5">
-          <RouteLegend hasZone={session.tancheonDist > 0} />
+          <RouteLegend hasZone={session.tancheonDistanceKm > 0} />
         </div>
       </div>
 
