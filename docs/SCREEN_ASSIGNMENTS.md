@@ -28,23 +28,23 @@ npm run dev
 | 화면 | 디자인 줄 | route | 묶음 | 이슈 | 담당 | 상태 |
 | --- | --- | --- | --- | --- | --- | --- |
 | 로그인 | 33–94 | `/login` | — | #29 | — | ✅ 완료 |
-| **[공용] 지도** | `TancheonMapBrand.dc.html` | `components/shared/` | **선행** | #33 | | |
-| **[공용] 하단 탭바** | 921–937 | `components/shared/` | **선행** | #34 | | |
-| 가입하기(약관 동의) | 95–135 | `/signup/consent` | A | #37 | | |
-| 개인정보 수집·이용 동의 상세 | 136–167 | `/signup/consent/detail` | A | #38 | | |
-| 프로필 설정(닉네임) | 168–198 | `/signup/nickname` | A | #39 | | |
+| **[공용] 지도** | `TancheonMapBrand.dc.html` | `components/shared/` | **선행** | #33 | | ✅ 완료 |
+| **[공용] 하단 탭바** | 921–937 | `components/shared/` | **선행** | #34 | | ✅ 완료 |
+| 가입하기(약관 동의) | 95–135 | `/signup/consent` | A | #37 | | ✅ 완료 |
+| 개인정보 수집·이용 동의 상세 | 136–167 | `/signup/consent/detail` | A | #38 | | ✅ 완료 |
+| 프로필 설정(닉네임) | 168–198 | `/signup/nickname` | A | #39 | | ✅ 완료 |
 | 러닝 진행 | 207–297 | `/running` | B | #40 | | |
 | 결과 | 298–374 | `/result/[sessionId]` | B | #41 | | |
 | 홈 — 달리기 탭 (+3초 카운트다운) | 684–771, 199–206 | `/home` | C | #42 | | |
 | 홈 — 랭킹 탭 | 772–828 | `/ranking` | C | #43 | | |
 | 홈 — 기록 탭 | 829–920 | `/records` | C | #44 | | |
 | 기록 상세 | 628–679 | `/records/[sessionId]` | C | #45 | | |
-| 설정 (+로그아웃·탈퇴 모달) | 375–437, 938–965 | `/settings` | D | #46 | | |
-| 위치정보 | 438–476 | `/settings/location` | D | #47 | | |
-| 개인정보처리방침 | 477–530 | `/privacy-policy` | D | #48 | | |
-| 개인정보 수집·이용 동의(보기) | 531–566 | `/settings/consent` | D | #49 | | |
-| 회원탈퇴 | 567–594 | `/settings/withdraw` | D | #50 | | |
-| 닉네임 수정 | 595–627 | `/settings/nickname` | D | #51 | | |
+| 설정 (+로그아웃·탈퇴 모달) | 375–437, 938–965 | `/settings` | D | #46 | | ✅ 완료 |
+| 위치정보 | 438–476 | `/settings/location` | D | #47 | | ✅ 완료 |
+| 개인정보처리방침 | 477–530 | `/privacy-policy` | D | #48 | | ✅ 완료 |
+| 개인정보 수집·이용 동의(보기) | 531–566 | `/settings/consent` | D | #49 | | ✅ 완료 |
+| 회원탈퇴 | 567–594 | `/settings/withdraw` | D | #50 | | ✅ 완료 |
+| 닉네임 수정 | 595–627 | `/settings/nickname` | D | #51 | | ✅ 완료 |
 
 **묶음**: A 가입 3개 · B 러닝 2개 · C 홈·기록 4개 · D 설정 6개.
 
