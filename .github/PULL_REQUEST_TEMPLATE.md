@@ -4,7 +4,11 @@
 
 ## 관련 Issue
 
-Closes #
+<!-- 이슈 PR(base develop): Refs #N — 일반 reference는 남지만 이슈가 자동으로 닫히지 않는다.
+     develop → main 승격 PR: 포함 이슈를 Closes #N 으로 한 줄씩 나열한다.
+     base가 main으로 잡히지 않았는지 확인한다(hotfix · 승격만 main). -->
+
+Refs #
 
 ## 주요 변경 사항
 

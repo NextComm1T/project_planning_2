@@ -35,7 +35,7 @@ GitHub 이슈 #<이슈번호> 를 구현할 거야.
 4. 이미 있는 src/app/login/ 을 읽어. 같은 방식으로 만들면 돼.
 
 작업 규칙:
-- main 을 최신화한 뒤 feat/<이슈번호>-<슬러그> branch 를 새로 만들어.
+- develop 을 최신화한 뒤 feat/<이슈번호>-<슬러그> branch 를 새로 만들어.
 - 내 화면 폴더 안에서만 작업해. src/app/globals.css, src/components/shared/*,
   src/app/layout.tsx, package.json 은 건드리지 마 — 필요하면 먼저 나한테 말해.
 - 색·크기는 globals.css 토큰만 써. 임의 hex 를 새로 쓰지 마.
@@ -77,7 +77,7 @@ GitHub 이슈 #<33 또는 34> 를 구현할 거야. 이건 화면이 아니라 �
 3. 이 컴포넌트를 쓰게 될 화면 이슈들도 훑어봐. props 계약이 그 화면들을 다 감당해야 해.
 
 작업 규칙:
-- main 최신화 후 chore/<이슈번호>-<슬러그> branch.
+- develop 최신화 후 chore/<이슈번호>-<슬러그> branch.
 - src/components/shared/ 에 만들어. 기존 AppShell · Header · BackButton 의
   스타일과 props 작명 방식을 따라가.
 - 서버나 외부 SDK 없이, 넘겨받은 데이터만으로 렌더되게 만들어.
@@ -111,7 +111,7 @@ npm run lint 와 npm run build 를 돌리고, npm run dev 로 <route> 를 실제
 
 - .github/PULL_REQUEST_TEMPLATE.md 양식을 그대로 채워.
 - 제목은 Conventional Commits 형식.
-- body 에 `Closes #<이슈번호>` 를 넣어.
+- base 는 develop 이야. body 에는 `Refs #<이슈번호>` 를 넣어(develop 대상 PR 은 Closes 로 이슈가 자동으로 닫히지 않아).
 - 검증 항목은 실제로 한 것만 체크해. 안 한 건 안 했다고 적어.
 - 화면 스크린샷은 내가 직접 붙일 테니 자리만 비워둬.
 - push 까지만 하고 merge 는 하지 마.

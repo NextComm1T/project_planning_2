@@ -34,8 +34,8 @@
 
 ## 3. Git
 
-- `main`에서 직접 개발하지 않는다.
-- 작업 시작 전 `main`을 최신화한 뒤 새 branch를 만든다.
+- `main` · `develop`에서 직접 개발하지 않는다.
+- 작업 시작 전 `develop`을 최신화한 뒤 새 branch를 만든다(hotfix만 `main`). 적용 시점과 승격 규칙은 `CONTRIBUTING.md` §0 · §9를 따른다.
 - branch naming은 `.claude/rules/git-workflow.md`를 따른다.
 - commit은 Conventional Commits 형식을 따른다.
 - `git push`, PR merge, production deploy는 사용자의 명시적 요청 없이 실행하지 않는다.
